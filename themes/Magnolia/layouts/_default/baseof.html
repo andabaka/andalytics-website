@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  {{- partial "head.html" . -}} 
+  <body style="background-color: #4f4d4e;">  
+     {{- partial "header.html" . -}}
+    <div id="content">
+      <main class="p-3 p-lg-5 container" style="background-color: transparent;">
+        <div class="container" style="background-color: transparent;">
+          {{- block "main" .}} {{- end }}
+        </div>
+      </main>
+    </div>
+    {{- partial "footer.html" . -}}
+  </body>
+</html>

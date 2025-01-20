@@ -1,0 +1,69 @@
+<!-- Takes a page and returns it as a card -->
+<div class="col-12 col-md-6 mb-4">
+    <!-- Card container with consistent styling -->
+    <div class="card p-0 bg-secondary shadow-sm border-none h-100">
+        <!-- Two-column layout that ensures equal height -->
+        <div class="row g-0 h-100">
+            <!-- Left column - Featured Image 
+                 Takes up 5/12 of the card width and stretches full height -->
+            {{ with .Resources.GetMatch "images/featured*" }}
+            <div class="col-5 h-100">
+                <!-- Image fills entire column height while maintaining aspect ratio -->
+                <img
+                    class="card-img h-100 w-100 object-fit-cover"
+                    src="{{ .RelPermalink }}"
+                    alt="{{ $.Title }}"
+                />
+            </div>
+            {{end}}
+            
+            <!-- Right column - Content
+                 Takes up 7/12 of the card width -->
+            <div class="col-7">
+                <!-- Content container with flexible column layout -->
+                <div class="card-body d-flex flex-column h-100">
+                    <!-- Upper content section -->
+                    <div>
+                        <!-- Post title with link -->
+                        <h5 class="card-title mb-1">
+                            <a href="{{.RelPermalink}}" class="text-decoration-none">{{.Title}}</a>
+                        </h5>
+
+                        <!-- Publication date -->
+                        <p class="card-text mb-2">
+                            <small class="text-body-secondary">{{.Date | time.Format "2 January, 2006"}}</small>
+                        </p>
+
+                        <!-- Tags section - shows up to 3 tags -->
+                        <div class="mb-2">
+                            {{with .GetTerms "tags"}}
+                            {{range first 3 .}}
+                            <a href="{{.RelPermalink}}" 
+                               class="btn btn-sm btn-secondary border-primary me-1 mb-1">
+                                {{.Title}}
+                            </a>
+                            {{end}}
+                            {{end}}
+                        </div>
+
+                        <!-- Post summary - hidden on mobile screens -->
+                        <p class="card-text d-none d-lg-block mb-3">
+                            {{.Summary}}
+                        </p>
+                    </div>
+
+                    <!-- Lower content section - pushed to bottom -->
+                    <div class="mt-auto">
+                        <!-- Reading time estimate -->
+                        <p class="card-text mb-2">
+                            <small class="text-body-secondary">{{.ReadingTime}} minutes read</small>
+                        </p>
+
+                        <!-- Read more button -->
+                        <a href="{{.RelPermalink}}" class="btn btn-primary btn-sm">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+</div>

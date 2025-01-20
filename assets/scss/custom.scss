@@ -1,0 +1,599 @@
+/* HERE YOU CAN ADD YOUR CUSTOM CSS/SCSS (not everything will be overwritable due to bootstrap and its use of !important) */
+/* Dodajte ovo u vaš custom CSS */
+
+body {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 19px;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+}
+
+p {
+   font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 19px;
+}
+
+label {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+}
+
+h1.display-1 {
+    font-weight: 100!important;
+    color: #b49791!important;
+    font-size: 53px;
+    letter-spacing: 3px;
+}
+
+.text-muted {
+    color: #4f4d4e!important;
+}
+
+div.fs-3.fw-light {
+    color: #4f4d4e7a;
+   font-size: 20px!important;
+}
+
+
+#transform-your-research-data-processing-from-months-to-hours {
+    color: #4f4d4ea3;
+    font-style: italic;
+  
+}
+
+#obrada-podataka-koja-traje-mjesecima-završite-je-za-nekoliko-sati {
+    color: #4f4d4ea3;
+    font-style: italic;
+  
+}
+
+
+
+.btn-primary {
+    --bs-btn-color: #4f4d4e;
+    --bs-btn-bg: #D1B9B4;
+    --bs-btn-border-color: #D1B9B4;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #D1B9B4;
+    --bs-btn-hover-border-color: #DFD1C9;
+    --bs-btn-focus-shadow-rgb: 136, 38, 89;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #D1B9B4;
+    --bs-btn-active-border-color: #D1B9B4;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #DFD1C9;
+    --bs-btn-disabled-border-color: #DFD1C9;
+}
+
+.btn-secondary {
+     --bs-btn-color: #4f4d4e;
+    --bs-btn-bg: #D1B9B4;
+    --bs-btn-border-color: #D1B9B4;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #D1B9B4;
+    --bs-btn-hover-border-color: #DFD1C9;
+    --bs-btn-focus-shadow-rgb: 136, 38, 89;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #D1B9B4;
+    --bs-btn-active-border-color: #D1B9B4;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #DFD1C9;
+    --bs-btn-disabled-border-color: #DFD1C9;
+}
+
+
+.border-primary {
+    
+    border-color: #D1B9B4 !important;
+}
+
+
+.card {
+    --bs-card-spacer-y: 1rem;
+    --bs-card-spacer-x: 1rem;
+    --bs-card-title-spacer-y: .5rem;
+    --bs-card-title-color: ;
+    --bs-card-subtitle-color: ;
+    --bs-card-border-width: var(--bs-border-width);
+    --bs-card-border-color: #e0dedc;
+    --bs-card-border-radius: var(--bs-border-radius);
+    --bs-card-box-shadow: ;
+    --bs-card-inner-border-radius: calc(var(--bs-border-radius) -(var(--bs-border-width)));
+    --bs-card-cap-padding-y: .5rem;
+    --bs-card-cap-padding-x: 1rem;
+    --bs-card-cap-bg: rgba(var(--bs-body-color-rgb), 0.03);
+    --bs-card-cap-color: ;
+    --bs-card-height: ;
+    --bs-card-color: ;
+    --bs-card-bg: var(--bs-body-bg);
+    --bs-card-img-overlay-padding: 1rem;
+    --bs-card-group-margin: .75rem;
+    position: relative;
+    display: flex
+;
+    flex-direction: column;
+    min-width: 0;
+    height: var(--bs-card-height);
+    color: var(--bs-body-color);
+    word-wrap: break-word;
+    background-color: var(--bs-card-bg);
+    background-clip: border-box;
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+    border-radius: var(--bs-card-border-radius);
+}
+
+
+
+a {
+    color: #D1B9B4;
+    text-decoration: underline;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    &:hover {
+        color: #e0dedc !important;
+    }
+}
+
+
+
+
+:root {
+  --main-bg-color: #4f4d4e;
+  --main-text-color: #e0dedc;
+}
+
+body {
+  background-color: var(--main-bg-color) !important;
+  color: var(--main-text-color) !important;
+}
+
+.card {
+  background-color: #4f4d4e !important;
+  color: #e0dedc !important;
+}
+
+.text-muted {
+  color: #e0dedc !important;
+}
+
+.bg-light {
+  background-color: transparent !important;
+}
+
+/* Za form elemente u contact formi */
+.form-control {
+  background-color: #5a5859 !important;
+  border-color: #6c6a6b !important;
+  color: #e0dedc !important;
+}
+
+.form-control:focus {
+  background-color: #5a5859 !important;
+  border-color: #6c6a6b !important;
+  color: #e0dedc !important;
+}
+
+/* Za labels u formi */
+label {
+  color: #e0dedc !important;
+}
+
+/* Globalni stilovi */
+body {
+    background-color: #4f4d4e !important;
+    color: #e0dedc !important;
+}
+
+// Navbar stilovi
+.navbar {
+  background-color: #4f4d4e !important;
+  
+  &.navbar-light {
+    background-color: #4f4d4e !important;
+    
+    .navbar-brand {
+      color: #e0dedc !important;
+      
+      .text-muted {
+        color: #e0dedc !important;
+      }
+    }
+    
+    .navbar-nav {
+      .nav-link {
+        color: #e0dedc !important;
+        
+        &:hover {
+          color: #D1B9B4!important;
+        }
+      }
+    }
+    
+    .navbar-toggler {
+      background-color: #e0dedc !important;
+    }
+  }
+}
+
+.navbar {
+    font-family: 'Poppins';
+}
+
+// Dropdown menu
+.dropdown-menu {
+  background-color: #4f4d4e !important;
+  
+  .dropdown-item {
+    color: #e0dedc !important;
+    
+    &:hover {
+      background-color: darken(#4f4d4e, 5%) !important;
+    }
+  }
+}
+
+// Vertikalna linija
+.vr {
+  background-color: #e0dedc !important;
+}
+/* Footer stilovi */
+.footer {
+    background-color: #4f4d4e !important;
+    color: #e0dedc !important;
+}
+
+.footer .text-muted {
+    color: #e0dedc !important;
+}
+
+.copyright {
+    background-color: #4f4d4e !important;
+}
+
+
+.bi-globe::before {
+    content: "";
+    color: #D1B9B4;
+}
+
+.bi-building::before {
+    content: "";
+    color: #D1B9B4
+}
+
+
+.nav-item .nav-trad::after {
+    font-size: 25px;
+    color: #D1B9B4;
+}
+
+.bi-envelope::before {
+    content: "";
+    color: #D1B9B4;
+}
+
+.bi-github::before {
+    content: "";
+    color: #D1B9B4;
+}
+
+.bi-linkedin::before {
+    content: "";
+    color: #D1B9B4;
+}
+
+.fa-graduation-cap:before, .fa-mortar-board:before {
+    content: "\f19d";
+    color: #D1B9B4;
+}
+.bi-check-circle-fill::before {
+    content: "";
+    color: #D1B9B4;
+}
+
+
+.navbar.navbar-light .navbar-brand .text-muted {
+    color: #e0dedc !important;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    letter-spacing: 2px;
+    
+}
+
+
+
+.hero-section {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    margin-top: -3rem; /* Za desktop */
+    background-color: #f5f5f5;
+    overflow: hidden;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70%;
+    height: 100%;
+}
+
+.hero-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to right, 
+        #f5f5f5 0%, 
+        rgba(245, 245, 245, 0.86) 10%, 
+        rgba(245, 245, 245, 0.46) 30%, 
+        rgba(245, 245, 245, 0.13) 60%, 
+        rgba(245, 245, 245, 0.27) 100%
+    );
+    z-index: 2;
+}
+
+@media (max-width: 992px) {
+    .hero-section {
+        height: auto;
+        min-height: 100vh;
+        margin-top: -1rem; 
+        padding-top: 10px;
+    }
+
+    .hero-background {
+        position: relative;
+        width: 100%;
+        height: 80vh;
+        margin-top: -1rem; 
+        padding-top: 30px;
+    }
+
+    .hero-image {
+        position: relative;
+        height: 80vh;
+    }
+
+    .gradient-overlay {
+        display: none; 
+    }
+    
+   
+}
+
+// Basic code styling
+code {
+  background-color: #e0dedc !important;
+  border-radius: 5px !important;
+  font-size: 12px !important;
+}
+
+// Code block styling
+pre {
+  background-color: #e0dedc !important;
+  border-radius: 5px !important;
+  padding: 1.5rem !important;  
+  margin: 1.5rem !important;
+  
+  code {
+    background-color: #e0dedc !important;
+    border-radius: 5px !important;
+  }
+}
+
+// Specific pre elements
+pre[tabindex="0"] {
+  background-color: #e0dedc !important;
+  border-radius: 5px !important;
+  
+  code {
+    background-color: #e0dedc !important;
+    border-radius: 5px !important;
+    color: #4f4d4e !important; // Osnovna boja za output tekst
+  }
+}
+
+// Source code and background light classes
+.sourceCode, 
+.bg-light {
+  background-color: #e0dedc !important;
+  border-radius: 5px !important;
+}
+
+// Syntax highlighting overrides
+.highlight {
+  pre {
+    background-color: #e0dedc !important;
+    
+    code {
+      background-color: #e0dedc !important;
+      color: #4f4d4e !important;
+    }
+  }
+}
+
+// R code syntax highlighting
+.language-r, .highlight {
+  // Comments
+  .c, .c1, .ch, .cm, .cp, .cpf, .cs {
+    color: #7A7A7A !important;
+    font-style: italic !important;
+  }
+  
+  // Functions
+  .nf, .a6e22e {
+    color: #284345c7 !important;
+  }
+  
+  // Keywords
+  .k, .kc, .kd, .kn, .kp, .kr, .kt {
+    color: #5F6F52 !important;
+  }
+  
+  // Strings
+  .s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss {
+    color: #a78780 !important;
+  }
+  
+  // Numbers
+  .m, .mb, .mf, .mh, .mi, .il, .mo {
+    color: #783D19 !important;
+  }
+}
+
+// Output styling (za tibble i druge outpute)
+pre[tabindex="0"] code {
+  // Output headers (##)
+  .gp, .c1 {
+    color: #4a4a4a !important;
+  }
+  
+  // Data types (<chr>, <dbl>, etc.)
+  .kt {
+    color: #5F6F52 !important;
+  }
+  
+  // NA values
+  .kc {
+    color: #7A7A7A !important;
+    font-style: italic !important;
+  }
+  
+  // Output numbers
+  .m, .mi {
+    color: #783D19 !important;
+  }
+  
+  // Output strings
+  .s, .s2 {
+    color: #a78780 !important;
+  }
+  
+  // Info symbols (ℹ)
+  .o {
+    color: #5F6F52 !important;
+  }
+  
+  // General output text
+  .c, .c1 {
+    color: #4f4d4e !important;
+  }
+}
+
+// Line highlighting
+.line .cl {
+  .c1 { 
+    color: #7A7A7A !important;
+    font-style: italic !important;
+  }
+}
+
+// Styling za R plot slike
+img[src*="figure-html"] {
+  background-color: #e0dedc !important;
+  border-radius: 5px !important;
+  padding: 1.5rem !important;
+  margin: 1.5rem auto !important;
+  display: block !important;
+}
+
+// Za container oko slike
+img[src*="figure-html"] {
+  &[style*="display: block"] {
+    background-color: #e0dedc !important;
+    border-radius: 5px !important;
+    padding: 1.5rem !important;
+    margin: 1.5rem auto !important;
+  }
+}
+
+// Za sve slike generirane iz R
+img[src*="_files/figure"] {
+  background-color: #e0dedc !important;
+  border-radius: 5px !important;
+  padding: 1.5rem !important;
+  margin: 1.5rem auto !important;
+}
+
+
+.leaflet.html-widget {
+  margin: 1.5rem auto !important;  
+  border-radius: 5px !important;   
+  overflow: hidden !important;     
+  background-color: #e0dedc !important;  
+  padding: 1rem !important;
+  width: 70% !important;
+}
+
+.html-widget-static-bound {
+  margin: 1.5rem auto !important;
+  display: block !important;
+}
+
+.navbar.navbar-light .navbar-brand .text-muted {
+    letter-spacing: 3px;
+    font-size: 17px !important;
+}
+
+span.footer-description { 
+    font-family: 'Poppins', sans-serif!important;
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+p.mb-2 { 
+    font-family: 'Poppins', sans-serif!important;
+    font-weight: bold;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    line-height: 1.5;
+}
+
+ .mb-3 {
+    margin-bottom: 0.3rem !important; 
+}
+
+.text-decoration-none {
+    text-decoration: none !important;
+    &:hover {
+        color: #e0dedc !important;
+    }
+}
+
+.text-body-secondary {
+    font-size: .600em!important;
+}
+
+.footer .text-muted {
+    &:hover {
+        color: #D1B9B4 !important;
+    }
+}

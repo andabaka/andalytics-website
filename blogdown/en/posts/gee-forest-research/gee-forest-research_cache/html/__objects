@@ -1,0 +1,22 @@
+install	
+load	
+unnamed-chunk-1	coords_df	plots
+unnamed-chunk-2	plots_ee
+unnamed-chunk-3	s2_imagery
+unnamed-chunk-4	vis_params
+unnamed-chunk-5	.gee-forest-research_cache/html/unnamed-chunk-5_2d4e672213ba54664a8a55eb034e90ab_meta
+unnamed-chunk-6	ndvi	ndvi_params
+unnamed-chunk-7	.gee-forest-research_cache/html/unnamed-chunk-7_5ff846469816f9bd70cfac8ae17efadd_meta
+unnamed-chunk-8	ndvi_values	unit_summary
+unnamed-chunk-9	plots_with_ndvi	.gee-forest-research_cache/html/unnamed-chunk-9_88466618bf031df6af73c32178197e79_meta
+unnamed-chunk-10	
+unnamed-chunk-11	forest_loss	forest2000	hansen	loss_year
+unnamed-chunk-14	plots_with_disturbance	temporal_summary	.gee-forest-research_cache/html/unnamed-chunk-14_c012d06de6d9081865440f3474fa923b_meta
+unnamed-chunk-15	terraclimate_data
+unnamed-chunk-16	process_plot_climate
+unnamed-chunk-17	single_plot_climate	temp_plot
+unnamed-chunk-18	precip_plot	seasonal_data
+unnamed-chunk-19	seasonal_data	seasonal_plot
+unnamed-chunk-20	summary_stats
+unnamed-chunk-21	all_plots_climate
+unnamed-chunk-22	all_plots_climate	batch_results	batch_size	end_idx	final_climate_data	i	n_batches	n_plots	start_idx

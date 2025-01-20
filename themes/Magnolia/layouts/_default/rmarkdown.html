@@ -1,0 +1,71 @@
+{{ define "main" }}
+<div class="container">
+  <!-- Title -->
+  <h1>{{ .Title }}</h1>
+  <!-- Featured Image -->
+  {{ with .Resources.GetMatch "images/featured*" }}
+  <div class="featured-image-container mb-4">
+    <img
+      class="img-fluid w-100 rounded shadow"
+      src="{{ .RelPermalink }}"
+      alt="{{ $.Title }}"
+      style="max-height: 400px; object-fit: cover;"
+    />
+  </div>
+  {{ end }}
+  <!-- Tags and Image Attribution Row -->
+  <div class="row g-2">
+    <!-- Tags -->
+    <div class="col-sm-12 col-lg-6 order-2 order-lg-1">
+      {{ range .GetTerms "tags" }}
+      <a href="{{ .RelPermalink }}" class="btn btn-sm btn-light border-primary mb-2">#{{ .Title }}</a>
+      {{ end }}
+    </div>
+    <!-- Image attribution -->
+    <div class="col-sm-12 col-lg-6 d-flex justify-content-lg-end order-1 order-lg-2">
+      <small class="text-muted">{{ .Params.imageAttribution | markdownify }}</small>
+    </div>
+  </div>
+  <!-- Publish date -->
+  <div class="row g-2">
+    <small class="text-muted col">{{ .Date | time.Format "2 January, 2006" }}</small>
+  </div>
+
+  <hr />
+  <!-- Main content with TOC -->
+  <div class="row g-3 gx-lg-5" style="font-size: 16px;">
+    <div class="col-12 col-lg-8 order-lg-first">
+      {{ .Content }}
+    </div>
+    <div class="col-12 col-lg-4 order-first order-lg-last">
+      {{ if in .TableOfContents "li" }}
+      <div class="border p-3 sticky-top toc">
+        <p>Table of Contents</p>
+        {{ .TableOfContents }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  <!-- Related posts -->
+  {{ if .GetTerms "tags" }}
+  <hr />
+  <h4 class="text-center my-4">{{ .Site.Params.single.similarcontent }}</h4>
+  <div class="row g-3 mb-3">
+    {{ $pagesToRender := slice }}
+    {{ range .GetTerms "tags" }}
+      {{ range first 4 .Pages }}
+        {{ $pageToAppend := . }}
+        {{ if in $pagesToRender $pageToAppend | not }}
+          {{ if eq $pageToAppend $.Page | not }}
+            {{ $pagesToRender = $pagesToRender | append $pageToAppend }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+    {{ range $pagesToRender }}
+      {{ partial "post-card" . }}
+    {{ end }}
+  </div>
+  {{ end }}
+</div>
+{{ end }}

@@ -1,0 +1,22 @@
+install	
+load	
+unnamed-chunk-1	
+unnamed-chunk-2	coords_df
+unnamed-chunk-3	plots_ee
+unnamed-chunk-4	
+unnamed-chunk-5	plots_ee	s2_imagery	vis_params
+unnamed-chunk-6	s2_imagery
+unnamed-chunk-7	ndvi	ndvi_params	plots_ee
+unnamed-chunk-8	coords_df	ndvi
+unnamed-chunk-9	coords_df	ndvi_values
+unnamed-chunk-10	plots_with_ndvi
+unnamed-chunk-11	
+unnamed-chunk-14	coords_df	loss_year_values	plots
+unnamed-chunk-15	
+unnamed-chunk-16	terraclimate_data
+unnamed-chunk-17	coords_df	process_plot_climate
+unnamed-chunk-18	single_plot_climate
+unnamed-chunk-19	single_plot_climate
+unnamed-chunk-20	single_plot_climate
+unnamed-chunk-21	coords_df	process_plot_climate
+unnamed-chunk-22	coords_df	process_plot_climate

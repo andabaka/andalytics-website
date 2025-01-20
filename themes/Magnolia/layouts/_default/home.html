@@ -1,0 +1,60 @@
+{{- define "main" -}}
+<section class="hero-section">
+    <!-- Container za sadržaj -->
+    <div class="container h-100 position-relative" style="z-index: 3;">
+        <div class="row h-100 align-items-center">
+            <div class="col-lg-6">
+                <div class="text-left" style="color: #4f4d4e;">
+                    <div class="fs-3 fw-light">
+                        {{ .Site.Params.homepage.preTitle }}
+                    </div>
+                    <h1 class="display-1">
+                        {{ .Site.Params.homepage.title }}
+                    </h1>
+                    <p class="text-justify text-lg-start">
+                        {{ .Site.Params.homepage.intro | markdownify}}
+                    </p>
+                    <div class="d-flex gap-3 mt-4">
+                        <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm" href="{{ .Site.Params.homepage.mainButtonRef }}">
+                            {{ .Site.Params.homepage.mainButton }}
+                        </a>
+                        <a class="btn btn-secondary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm" href="{{ .Site.Params.homepage.secondButtonRef }}">
+                            {{ .Site.Params.homepage.secondButton }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background elementi -->
+    <div class="hero-background">
+        <div class="hero-image">
+            {{ with resources.GetMatch "img/background.jpg" }}
+                <img src="{{.RelPermalink}}" alt="Background image">
+            {{ end }}
+        </div>
+        <div class="gradient-overlay"></div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="mt-5 align-items-center">
+        {{ .Content }}
+    </div>
+    {{with (site.GetPage "/posts")}}
+    <hr />
+    <h2 class="text-center my-4">{{$.Site.Params.homepage.blogTitle}}</h2>
+    <div class="row g-3 mb-3">
+        {{range first 4 .Pages}} 
+            {{- partial "post-card.html" . -}} 
+        {{end}}
+    </div>
+    <div class="d-flex justify-content-center">
+        <a class="btn btn-primary btn-lg px-5 py-3 fs-6 fw-bolder shadow-sm" href="{{ .RelPermalink }}">
+            {{$.Site.Params.homepage.blogButton}}
+        </a>
+    </div>
+    {{end}}
+</div>
+{{- end -}}
