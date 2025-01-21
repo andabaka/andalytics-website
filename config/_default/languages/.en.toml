@@ -46,7 +46,7 @@ With a PhD in Forestry and 7 years of academic research experience, I understand
     lastname = "Lastname*"
     email = "E-mail*"
     phone = "Phone Number*"
-    Inquiry = "Tell me about your research needs*"
+    inquiry = "Tell me about your research needs*"
     checkbox = "I accept that my data will be processed in accordance with privacy regulations*"
     submitBtn = "Send Inquiry"
 

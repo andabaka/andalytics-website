@@ -1,7 +1,7 @@
 ---
 title: "Automating Forest Data Extraction: From Multiple Files to Analysis-Ready Datasets"
 author: "Marijana Andabaka"
-date: "2025-01-12"
+date: "2025-01-21"
 slug: "forest-data-automation"
 categories: ["R", "Forest Research", "Data Processing"]
 tags: ["automation", "R", "forest science", "data extraction", "forestry"]
