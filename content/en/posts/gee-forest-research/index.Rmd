@@ -267,13 +267,7 @@ if (!file.exists("data/cache/vis_params.rds")) {
 }
 ```
 
-These parameters control how the satellite imagery is displayed. Bands ('B4', 'B3', 'B2') create a true-color image:
-
-- B4 (Red band) → Red channel
-- B3 (Green band) → Green channel
-- B2 (Blue band) → Blue channel
-
-Min and max control the brightness range and gamma adjusts the contrast (values > 1 increase contrast). 
+These parameters control how the satellite imagery is displayed. Bands ('B4', 'B3', 'B2') create a true-color image. Min and max control the brightness range and gamma adjusts the contrast (values > 1 increase contrast). 
 
 Finally, we can create our visualization by combining the satellite imagery with plot locations.
 The resulting map allows users to zoom in and out, toggle between different base maps, and switch layers on and off using the layer control panel in the top-left corner. This interactivity allow us to understand the spatial distribution of our sampling plots within the broader forest landscape.
