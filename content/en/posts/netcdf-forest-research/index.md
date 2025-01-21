@@ -778,10 +778,7 @@ The structured nature of NetCDF files, with their well-organized dimensions and 
 ## References
 
 1. <a href="https://crudata.uea.ac.uk/cru/data/hrg/" target="_blank">Harris, I., Osborn, T. J., Jones, P., & Lister, D. (2020). Version 4 of the CRU TS monthly high-resolution gridded multivariate climate dataset. Scientific Data, 7(1), 1-18.</a>
-
 2. <a href="https://cran.r-project.org/web/packages/raster/index.html" target="_blank">Hijmans, R. J. (2022). raster: Geographic Data Analysis and Modeling. R package version 3.6-3.</a>
-
 3. <a href="https://cran.r-project.org/web/packages/ncdf4/index.html" target="_blank">Pierce, D. (2019). ncdf4: Interface to Unidata netCDF (Version 4 or Earlier) Format Data Files. R package version 1.17.</a>
-
 4. <a href="https://climatedataguide.ucar.edu/climate-tools/regridding-overview" target="_blank">National Center for Atmospheric Research Staff (Eds). Last modified 13 Jan 2014. "The Climate Data Guide: Regridding Overview.</a> 
 
