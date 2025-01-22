@@ -1,5 +1,5 @@
 ---
-title: "Data Science Consulting for Research Institutions"
+title: "Data Analysis Services for Research Institutions"
 description: "Specialized in forest ecosystem data analysis"
 ---
 
