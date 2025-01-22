@@ -964,7 +964,7 @@ seasonal_plot
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/seasonal_analysis-1.png" alt="Average monthly temperature and precipitation patterns from 2014 to 2023" width="70%" />
 <p class="caption">
-(#fig:seasonal_analysis)Average monthly temperature and precipitation patterns from 2014 to 2023
+Figure 6: Average monthly temperature and precipitation patterns from 2014 to 2023
 </p>
 
 </div>
