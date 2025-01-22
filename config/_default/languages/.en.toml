@@ -108,7 +108,7 @@ With a PhD in Forestry and 7 years of academic research experience, I understand
     day7 = ""
 
 [params.footer]
-  extraDescription1 = "Data Science Consulting for Research Institutions"
+  extraDescription1 = "Data Analysis Services for Research Institutions"
   extraDescription2 = ""
   [params.footer.navigate]
   heading = "Navigate"   
