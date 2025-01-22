@@ -18,10 +18,10 @@
            <form
              id="contact-form"
              role="form"
-             action="https://formspree.io/f/mldeaqab"
+             action="{{.Site.Params.contacts.form.formspreeLink}}"
              method="POST"
            >
-             <!-- Anti-spam i redirect polja -->
+           
              <input type="text" name="_gotcha" style="display:none">
              <input type="hidden" name="_next" value="https://andalytics.com/thank-you">
              <input type="hidden" name="_subject" value="New inquiry from Andalytics">

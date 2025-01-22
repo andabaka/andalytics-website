@@ -41,12 +41,12 @@ With a PhD in Forestry and 7 years of academic research experience, I understand
   formCallToAction = "Send an inquiry about your research project"
   socialCallToAction = "Connect with me on professional networks"
   [params.contacts.form]
-    formspreeLink = "https://formspree.io/f/mldeaqab"
+    formspreeLink = "https://formspree.io/f/xrbezdlz"
     firstname = "Firstname*"
     lastname = "Lastname*"
     email = "E-mail*"
     phone = "Phone Number*"
-    inquiry = "Tell me about your research needs*"
+    Inquiry = "Tell me about your research needs*"
     checkbox = "I accept that my data will be processed in accordance with privacy regulations*"
     submitBtn = "Send Inquiry"
 

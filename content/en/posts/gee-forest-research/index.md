@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Google Earth Engine: A Powerful Tool for Modern Forest Science"
 author: "Marijana Andabaka"
-date: "2025-01-21"
+date: "2024-12-15"
 slug: "gee-forest-research"
 categories: ["R", "GEE", "Forest Research"]
 tags: ["remote-sensing", "forest-monitoring", "earth-engine", "R", "spatial-analysis"]
@@ -540,7 +540,7 @@ ggplot(plots_with_ndvi, aes(x = folder_name, y = nd)) +
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/ndvi_distribution-1.png" alt="Distribution of NDVI values across forest management units" width="70%" />
 <p class="caption">
-(#fig:ndvi_distribution)Distribution of NDVI values across forest management units
+Figure 1: Distribution of NDVI values across forest management units
 </p>
 
 </div>
@@ -749,7 +749,7 @@ if (!file.exists("data/cache/temporal_analysis.rds")) {
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/temporal_analysis-1.png" alt=" Patterns of forest loss events across management units from 2000 to 2022" width="70%" />
 <p class="caption">
-(#fig:temporal_analysis) Patterns of forest loss events across management units from 2000 to 2022
+Figure 2: Patterns of forest loss events across management units from 2000 to 2022
 </p>
 
 </div>
@@ -933,7 +933,7 @@ if (!file.exists("data/cache/single_plot_climate.rds")) {
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/single_plot_analysis-1.png" alt="Monthly maximum and minimum temperatures (°C) from 2014 to 2023 for a representative forest plot" width="70%" />
 <p class="caption">
-(#fig:single_plot_analysis)Monthly maximum and minimum temperatures (°C) from 2014 to 2023 for a representative forest plot
+Figure 3: Monthly maximum and minimum temperatures (°C) from 2014 to 2023 for a representative forest plot
 </p>
 
 </div>
@@ -976,7 +976,7 @@ if (!file.exists("data/cache/precip_analysis.rds")) {
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/precipitation_analysis-1.png" alt="Monthly precipitation totals (mm) from 2014 to 2023 for a representative forest plot" width="70%" />
 <p class="caption">
-(#fig:precipitation_analysis)Monthly precipitation totals (mm) from 2014 to 2023 for a representative forest plot
+Figure 4: Monthly precipitation totals (mm) from 2014 to 2023 for a representative forest plot
 </p>
 
 </div>
@@ -1053,7 +1053,7 @@ if (!file.exists("data/cache/seasonal_analysis.rds")) {
 
 <img src="{{< blogdown/postref >}}index_files/figure-html/seasonal_analysis-1.png" alt="Average monthly temperature and precipitation patterns from 2014 to 2023" width="70%" />
 <p class="caption">
-(#fig:seasonal_analysis)Average monthly temperature and precipitation patterns from 2014 to 2023
+Figure 5: Average monthly temperature and precipitation patterns from 2014 to 2023
 </p>
 
 </div>
