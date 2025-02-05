@@ -2,7 +2,8 @@
 <html>
   {{- partial "head.html" . -}} 
   <body style="background-color: #4f4d4e;">  
-     {{- partial "header.html" . -}}
+    {{- partial "cookie-consent.html" . -}}  
+    {{- partial "header.html" . -}}
     <div id="content">
       <main class="p-3 p-lg-5 container" style="background-color: transparent;">
         <div class="container" style="background-color: transparent;">
@@ -11,6 +12,5 @@
       </main>
     </div>
     {{- partial "footer.html" . -}}
-    {{- partial "cookie-consent.html" . -}}  
   </body>
 </html>
