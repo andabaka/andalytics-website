@@ -1,0 +1,35 @@
+<div id="cookie-notice" class="fixed bottom-0 w-full bg-gray-800 text-white p-4" style="display: none;">
+    <p class="text-center">
+        {{ if eq .Lang "hr" }}
+            Ova web stranica koristi kolačiće za poboljšanje korisničkog iskustva i analizu prometa.
+            <button onclick="acceptCookies()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Prihvaćam
+            </button>
+        {{ else }}
+            This website uses cookies to improve user experience and analyze traffic.
+            <button onclick="acceptCookies()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                Accept
+            </button>
+        {{ end }}
+    </p>
+</div>
+
+<script>
+function acceptCookies() {
+    document.getElementById('cookie-notice').style.display = 'none';
+    localStorage.setItem('cookiesAccepted', 'true');
+    
+    // Pokretanje Google Analytics nakon prihvaćanja
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{ .Site.Params.googleAnalytics }}', {
+        'anonymize_ip': true
+    });
+}
+
+// Provjera jesu li kolačići već prihvaćeni
+if (!localStorage.getItem('cookiesAccepted')) {
+    document.getElementById('cookie-notice').style.display = 'block';
+}
+</script>
