@@ -1,11 +1,11 @@
 ---
 title: "Data Analysis Services for Research Institutions"
-description: "Specialized in forest ecosystem data analysis"
+description: "Specialized in forestry research data analysis"
 ---
 
 ### Unlock the Power of Your Research Data
 
-Academic research generates vast amounts of valuable data, but processing it efficiently while maintaining scientific rigor can be challenging. I help research institutions automate their data analysis workflows, allowing scientists to focus on discovery rather than data processing.
+Academic research produces substantial amounts of valuable data, but processing it efficiently while maintaining methodological precision can be challenging. I help research institutions automate their data analysis workflows, allowing scientists to focus on discovery rather than data processing.
 
 As a researcher with a PhD in Forestry and extensive experience in handling complex datasets, I understand the delicate balance between automation efficiency and scientific accuracy. My solutions combine technical expertise with deep research experience to transform your data processing challenges into streamlined, reproducible workflows.
 
