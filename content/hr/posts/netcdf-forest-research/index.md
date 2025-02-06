@@ -1,7 +1,7 @@
 ---
 title: "Working with NetCDF Files in Forest Research: A Practical Guide"
 author: "Marijana Andabaka"
-date: "2025-01-20"
+date: "2025-02-06"
 slug: "netcdf-forest-research"
 categories: ["R", "Forest Research", "Climate Data", "Data Analysis"]
 tags: ["NetCDF", "R", "forest science", "climate data", "CRU dataset", "spatial analysis", "data processing", "downscaling"]

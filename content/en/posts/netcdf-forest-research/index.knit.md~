@@ -1,0 +1,158 @@
+---
+title: "Working with NetCDF Files in Forest Research: A Practical Guide"
+author: "Marijana Andabaka"
+date: "2025-02-06"
+slug: "netcdf-forest-research"
+categories: ["R", "Forest Research", "Climate Data", "Data Analysis"]
+tags: ["NetCDF", "R", "forest science", "climate data", "CRU dataset", "spatial analysis", "data processing", "downscaling"]
+summary: "Learn how to work with NetCDF climate data files in forest research using R, including accessing CRU datasets, processing climate data, and implementing spatial interpolation techniques for forest plot analysis."
+description: "A comprehensive guide to working with NetCDF files in forest research using R. This tutorial covers everything from understanding NetCDF structure to practical applications with CRU climate data, including detailed code examples for data extraction, processing, and climate data interpolation techniques specifically designed for forest research applications."
+layout: rmarkdown
+imageAttribution: 'Photo by <a href="https://unsplash.com/@fabulu75?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank">Fabrice Villard</a>'
+---
+
+      
+
+
+## Introduction
+
+Have you ever found yourself staring at your forest plot data wondering how to combine it with historical climate information? Or maybe you've heard other researchers talk about "NetCDF files" and "CRU data" and felt a bit lost? Don't worry. I've been there too! When I first encountered these mysterious .nc files in my research, I had no idea how to handle them. But today, I'm going to show you just how approachable they can be.
+
+## What Are NetCDF Files
+
+NetCDF (Network Common Data Form) is a specialized file format created by the scientific community to store and share complex scientific data. Think of a NetCDF file as a magical container that can hold an entire world of climate data. Unlike our familiar Excel spreadsheets that are basically flat tables, NetCDF files are more like sophisticated 3D puzzles. They can store multiple layers of information. Imagine having temperature, precipitation, and humidity data for every point on Earth, across many years, all neatly packed into a single file.
+
+For forest researchers, this is incredibly valuable. When we're trying to understand how forests grow, respond to climate change, or recover from disturbances, we need to look at climate patterns over long periods and across different locations. NetCDF files make this possible without drowning us in thousands of separate spreadsheets.
+
+## Setting Up Our R Environment
+
+Before we dive into working with climate data, we need to prepare our R environment with the right tools. Let's install and set up these essential packages.
+
+
+
+
+``` r
+# First, let's install all the packages we need
+install.packages(c(
+    "ncdf4",       # For handling NetCDF files - climate data format
+    "raster",      # For working with spatial data
+    "sf",          # For handling forest plot locations and spatial operations
+    "tidyverse",   # For data manipulation and visualization
+    "lubridate",   # For handling dates in climate data
+    "R.utils"      # For working with compressed files
+))
+
+# Now let's load these packages into current R session
+library(ncdf4)
+library(raster)
+library(sf)
+library(tidyverse)
+library(lubridate)
+library(R.utils)
+
+```
+
+
+## Enter the CRU Dataset
+
+Remember that time you needed historical climate data for your study site but all the local weather stations were too far away or didn't have long enough records? That's where the Climate Research Unit (CRU) dataset comes to the rescue. Created by the University of East Anglia, the CRU dataset is like having a time machine that lets us look at climate patterns anywhere on Earth, going all the way back to 1901.
+
+What makes CRU data particularly valuable for forest research is its consistency and comprehensive coverage. Whether you're studying forest growth or urban tree health, CRU can provide you with reliable climate data.
+
+Now, here's the exciting part, getting this valuable data is actually quite straightforward. While in the past you might have needed to navigate through complex data portals or send formal requests, today I'll show you a simple R function that does all the heavy lifting for us.
+
+Before we jump into the code, let me show you where our climate data lives. If you visit the <a href="https://crudata.uea.ac.uk/cru/data/hrg/" target="_blank">CRU website</a> (shown in the image below), you'll find a treasure trove of climate data organized in a specific way. Understanding this organization is like having a map to a library. Once you know the system, finding what you need becomes much easier.
+
+<div class="figure" style="text-align: center">
+<img src="images/cru.jpeg" alt="CRU website download page" width="80%" />
+<p class="caption">(\#fig:image-cru)CRU website download page</p>
+</div>
+
+
+Looking at the website, you can see how CRU organizes their files by version numbers and variables. This structured approach is what allows our download function to work its magic.
+
+Here's something important I learned the hard way. When downloading NetCDF files, we need to give R enough time to complete the task. By default, R only waits 60 seconds before giving up on a download, which often isn't enough for climate data files.
+
+Let's adjust this setting before we start downloading. This simple adjustment can save you from frustrating failed downloads.
+
+
+``` r
+# Increase the download timeout to 10 minutes (600 seconds)
+# Climate data files can be large, so we need to be patient
+options(timeout = 600)
+
+# Let's verify new setting
+getOption("timeout")
+#> [1] 600
+```
+
+One of the most powerful features of CRU data is its extensive temporal coverage combined with regular managed updates. The current 4.08 version provides climate information spanning from 1901 to 2023, offering over a century of data for your research. What makes CRU particularly valuable is its commitment to quality and continuous improvement through systematic updates. 
+
+The data is available in various time chunks and our download function is designed to handle this flexibility. You can request the entire historical record (1901-2023), specific decades or other custom time period within download page list.
+
+Let's look at our download function, designed to make accessing this data as easy as possible.
+
+``` r
+download_cru_climate <- function(variable, start_year = 1901, end_year = 2023, version = "4.08") {
+    
+    # First, we tell our function where to find the data
+    base_url <- paste0("https://crudata.uea.ac.uk/cru/data/hrg/",
+                       "cru_ts_", version,
+                       "/cruts.2406270035.v", version)
+    
+    # Now we specify which climate variable we want
+    var_url <- file.path(base_url, tolower(variable))
+    
+    # Create the exact filename we need
+    # This follows CRU's specific naming convention
+    filename <- sprintf("cru_ts%s.%d.%d.%s.dat.nc.gz",
+                        version, start_year, end_year, 
+                        tolower(variable))
+    
+    # Combine everything to get download link
+    download_url <- file.path(var_url, filename)
+    
+    # Set up where we'll save the file on computer
+    dest_file <- file.path(getwd(), filename)
+    dest_file_uncompressed <- gsub("\\.gz$", "", dest_file)
+    
+    # Keep us informed about what's happening
+    message("Starting to download ", variable, " data")
+    message("This might take a while - perfect time to grab a coffee!")
+    
+    # Download file (the heavy lifting happens here)
+    download.file(download_url, dest_file, mode = "wb", quiet = FALSE)
+    message("Download finished - now let's unpack it")
+    
+    # Unzip the file (it comes compressed to save space)
+    R.utils::gunzip(dest_file, dest_file_uncompressed, remove = FALSE)
+    message("All done! Your data is ready to use")
+    
+    return(dest_file_uncompressed)
+}
+```
+
+Using this function is as simple as telling it what climate variable you want. For example, if you need precipitation and temperature data for your study, just type:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

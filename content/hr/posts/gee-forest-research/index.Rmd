@@ -256,8 +256,10 @@ Map$centerObject(plots_ee, zoom = 9)
 #-----------------------------
 # Add satellite imagery
 #-----------------------------
-Map$addLayer(s2_imagery, vis_params, "Sentinel-2") +
+map <- Map$addLayer(s2_imagery, vis_params, "Sentinel-2") +
 Map$addLayer(plots_ee, list(color = 'white', pointSize = 1), "Forest Plots")  
+
+map
 
 ```
 
@@ -304,8 +306,10 @@ Interactive map shows NDVI patterns across the entire landscape through a color 
 #--------------------------------------------------
 Map$centerObject(plots_ee, zoom = 9)
 
-Map$addLayer(ndvi, ndvi_params, "NDVI") +
+map1 <-Map$addLayer(ndvi, ndvi_params, "NDVI") +
 Map$addLayer(plots_ee, list(color = 'white', pointSize = 1), "Forest Plots")
+
+map1
 
 ```
 
@@ -517,9 +521,11 @@ vis_params_loss <- list(
 # Create interactive map
 #--------------------------------------------------
 Map$centerObject(plots_ee, zoom = 9)
-Map$addLayer(forest2000, vis_params_forest, "Forest Cover 2000") +
+map2 <- Map$addLayer(forest2000, vis_params_forest, "Forest Cover 2000") +
 Map$addLayer(loss_year, vis_params_loss, "Year of Loss", opacity = 0.6) +
 Map$addLayer(plots_ee, list(color = 'white', pointSize = 1), "Forest Plots")
+
+map2
 ```
 
 Now let's see how forest disturbances vary across management units by analyzing patterns of forest loss.
