@@ -17,4 +17,4 @@ Dopustite mi da vam pomognem unaprijediti vaše istraživanje kroz učinkovitiju
 - **Reproducibilnost**: Detaljno dokumentirani postupci koje možete ponovno koristiti
 - **Stručnost**: Razumijevanje vaših istraživačkih podataka
 
-[Saznajte više o uslugama](/usluge) | [Kontaktirajte me](/kontakt)
+[Saznajte više o uslugama](/usluge) | [Kontaktirajte me](/kontakt) [Portfolio](https://mandabaka.netlify.app/)

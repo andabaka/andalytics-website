@@ -18,4 +18,4 @@ Let me help you spend less time processing data and more time advancing your res
 - **Reproducibility**: Documented workflows
 - **Expert Support**: Research-focused solutions
 
-[Explore My Services](pages/services) | [Contact Me](pages/contacts)
+[Explore My Services](pages/services) | [Contact Me](pages/contacts) | [About Me](https://mandabaka.netlify.app/)
