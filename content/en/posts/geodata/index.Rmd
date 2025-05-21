@@ -319,7 +319,7 @@ points(oak_croatia$lon, oak_croatia$lat, col="darkgreen", pch=19, cex=0.8)
 
 **Important tip:** When working with species occurrence data, always check the count first with `download=FALSE` to avoid errors with very common species. GBIF has a 100,000 record limit per request.
 
-```{r, echo=FALSE, fig.cap="Quercus robur occurrences in Croatia}
+```{r, echo=FALSE, fig.cap="Quercus robur occurrences in Croatia"}
 knitr::include_graphics("images/oak_occurrences.png")
 ```
 
