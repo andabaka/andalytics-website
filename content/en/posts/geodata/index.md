@@ -1,32 +1,18 @@
 ---
 title: "Geographic Data for Forestry Research Made Easy: The R geodata Package"
 author: "Marijana Andabaka"
-date: "`r Sys.Date()`"
+date: "r Sys.Date()"
 slug: "geodata-forest-research"
 categories: ["R", "Forest Research", "Geographic Data", "Spatial Analysis"]
 tags: ["geodata", "R", "forest science", "soil data", "elevation", "land cover", "climate data", "species occurrence", "GBIF", "WorldClim", "spatial analysis", "GIS"]
 summary: "Learn how to transform geographic data acquisition for forest research using the geodata R package - access elevation, soil, climate, land cover and species occurrence datasets in minutes instead of days."
 description: "A comprehensive guide to using the geodata R package for forestry research. This tutorial covers streamlined access to global geographic datasets, practical code examples for extracting forest-relevant variables, and techniques for creating comprehensive site profiles for forest management and research."
 layout: rmarkdown
-'Photo by <a href="https://www.pexels.com/photo/leafless-tree-on-the-field-6056496/" target="_blank">cottonbro studio</a>'
+imageAttribution: 'Photo by <a href="https://unsplash.com/@fabulu75?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank">Fabrice Villard</a>'
 ---
 
       
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(
-  echo = TRUE,
-  warning = FALSE,
-  message = FALSE,
-  cache = TRUE,
-  fig.align = 'center',
-  fig.cap = TRUE,
-  out.width = '60%',
-  collapse = TRUE,  
-  comment = "#>",   
-  prompt = FALSE    
-)
-library(tidyverse) 
-```
+
 
 
 **Are you still manually downloading geographic data for your forestry projects?**
@@ -68,7 +54,8 @@ The geodata package is a powerful R tool that provides direct access to a wide r
 
 Let's start by installing and loading the required packages:
 
-```{r load-packages, eval=FALSE}
+
+``` r
 # Install packages if needed
 # install.packages(c("geodata", "terra", "tidyverse", "viridis", "sf"))
 
@@ -106,7 +93,8 @@ Let's explore the various geographic datasets available through geodata that are
 
 Terrain characteristics significantly influence forest growth, species distribution, and management practices:
 
-```{r elevation, eval=FALSE}
+
+``` r
 # Download Croatia boundaries first (we'll use these throughout)
 croatia <- gadm(country="HRV", level=0, path="data/boundaries/")
 
@@ -124,16 +112,18 @@ plot(croatia_elevation, main = "Elevation in Croatia (m)",
 
 ```
 
-```{r, echo=FALSE, fig.cap="Elevation in Croatia (m)"}
-knitr::include_graphics("images/elevation.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/elevation.png" alt="Elevation in Croatia (m)" width="60%" />
+<p class="caption"><span id="fig:unnamed-chunk-1"></span>Figure 1: Elevation in Croatia (m)</p>
+</div>
 
 
 ### 2. Soil Properties
 
 Soil characteristics are crucial for understanding forest productivity and species distribution:
 
-```{r soil, eval=FALSE}
+
+``` r
 # Download global soil pH data (0-5cm depth)
 soil_ph <- soil_world(
   var = "phh2o",  # pH in H2O
@@ -149,9 +139,10 @@ plot(croatia_soil_ph, main = "Soil pH (0-5cm depth)",
      col = forest_palette(100))
 ```
 
-```{r, echo=FALSE, fig.cap="Soil pH (0-5cm depth)"}
-knitr::include_graphics("images/croatia_soil_ph.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/croatia_soil_ph.png" alt="Soil pH (0-5cm depth)" width="60%" />
+<p class="caption"><span id="fig:unnamed-chunk-2"></span>Figure 2: Soil pH (0-5cm depth)</p>
+</div>
 
 Other valuable soil variables include:
 - `"clay"` - Clay content (%)
@@ -173,7 +164,8 @@ The `geodata` package provides access to global Soil Organic Carbon (SOC) data t
 
 Let's also look at SOC, an important indicator of soil fertility:
 
-```{r soil-carbon, eval=FALSE}
+
+``` r
 # Download and process soil organic carbon (SOC) data
 soil_soc <- soil_world(
   var = "soc",      # Soil Organic Carbon
@@ -191,16 +183,18 @@ plot(croatia_soil_soc,
 
 ```
 
-```{r, echo=FALSE, fig.cap="Soil Organic Carbon (0-5cm depth, g/kg)"}
-knitr::include_graphics("images/croatia_soil_soc.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/croatia_soil_soc.png" alt="Soil Organic Carbon (0-5cm depth, g/kg)" width="60%" />
+<p class="caption"><span id="fig:unnamed-chunk-3"></span>Figure 3: Soil Organic Carbon (0-5cm depth, g/kg)</p>
+</div>
 
 
 ### 3. Land Cover Data
 
 Forest cover and land use are essential for forestry research:
 
-```{r landcover, eval=FALSE}
+
+``` r
 # Download tree cover data
 tree_cover <- landcover(
   var = "trees",  # Tree cover percentage
@@ -222,9 +216,10 @@ plot(croatia_trees_pct, main = "Tree Cover % (2020)",
 
 ```
 
-```{r, echo=FALSE, fig.cap="Tree Cover % (2020)"}
-knitr::include_graphics("images/croatia_trees.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/croatia_trees.png" alt="Tree Cover % (2020)" width="60%" />
+<p class="caption"><span id="fig:unnamed-chunk-4"></span>Figure 4: Tree Cover % (2020)</p>
+</div>
 
 Other landcover variables include:
 - `"crops"` - Cropland percentage
@@ -238,7 +233,8 @@ Other landcover variables include:
 
 The 19 bioclimatic variables represent climate factors particularly relevant to biological species:
 
-```{r bioclim, eval=FALSE}
+
+``` r
 # Download bioclimatic variables for Croatia
 croatia_bioclim <- worldclim_country(
   country = "Croatia",
@@ -259,7 +255,8 @@ These bioclimatic variables represent annual trends, seasonality, and extreme co
 
 Let's focus on a few key variables:
 
-```{r forest-climate, eval=FALSE}
+
+``` r
 # Extract forest-relevant variables
 forest_vars <- c(
   "wc2.1_30s_bio_1",   # Annual Mean Temperature
@@ -278,19 +275,22 @@ plot(croatia_forest_climate,
      col = forest_palette(100))
 ```
 
-```{r, echo=FALSE, fig.cap="Annual Mean Temperature in Croatia"}
-knitr::include_graphics("images/croatia_temp.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/croatia_temp.png" alt="Annual Mean Temperature in Croatia" width="60%" />
+<p class="caption"><span id="fig:unnamed-chunk-5"></span>Figure 5: Annual Mean Temperature in Croatia</p>
+</div>
 
-```{r, echo=FALSE, fig.cap="Annual Precipitation in Croatia (mm)"}
-knitr::include_graphics("images/croatia_precip.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/croatia_precip.png" alt="Annual Precipitation in Croatia (mm)" width="60%" />
+<p class="caption"><span id="fig:unnamed-chunk-6"></span>Figure 6: Annual Precipitation in Croatia (mm)</p>
+</div>
 
 ### 5. Species Occurrence Data
 
 For biodiversity and species distribution studies, `geodata` provides direct access to GBIF (Global Biodiversity Information Facility) data:
 
-```{r species, eval=FALSE}
+
+``` r
 # Check the number of records first (without downloading)
 sp_occurrence("Quercus", "robur", download=FALSE)
 # Output will show how many records exist (often > 1,000,000 for common species)
@@ -320,9 +320,10 @@ points(oak_croatia$lon, oak_croatia$lat, col="darkgreen", pch=19, cex=0.8)
 
 **Important tip:** When working with species occurrence data, always check the count first with `download=FALSE` to avoid errors with very common species. GBIF has a 100,000 record limit per request.
 
-```{r, echo=FALSE, fig.cap="Quercus robur occurrences in Croatia"}
-knitr::include_graphics("images/oak_occurrences.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/oak_occurrences.png" alt="Quercus robur occurrences in Croatia" width="60%" />
+<p class="caption"><span id="fig:unnamed-chunk-7"></span>Figure 7: Quercus robur occurrences in Croatia</p>
+</div>
 
 The species occurrence functionality allows you to:
 - Download data for specific species or entire genera
@@ -336,7 +337,8 @@ The species occurrence functionality allows you to:
 
 Administrative boundaries are useful for forest management and planning:
 
-```{r boundaries, eval=FALSE}
+
+``` r
 # Download country boundaries at administrative level 1 (regions/provinces)
 croatia_regions <- gadm(
   country = "HRV",  # ISO3 code for Croatia
@@ -348,15 +350,17 @@ plot(croatia_regions, main = "Administrative Regions of Croatia", col = forest_p
 
 ```
 
-```{r, echo=FALSE, fig.cap="Administrative Regions of Croatia"}
-knitr::include_graphics("images/croatia_regions.png")
-```
+<div class="figure" style="text-align: center">
+<img src="images/croatia_regions.png" alt="Administrative Regions of Croatia" width="60%" />
+<p class="caption"><span id="fig:unnamed-chunk-8"></span>Figure 8: Administrative Regions of Croatia</p>
+</div>
 
 ## BONUS: Forest Site Characterization in Croatia
 
 Now let's combine multiple datasets to create a comprehensive geographic profile for a specific forest site:
 
-```{r site-profile, eval=FALSE}
+
+``` r
 # Define a forest location of interest
 forest_loc <- c(16.2, 45.5)  
 
@@ -408,9 +412,7 @@ site_profile
 ```
 
 
-```{r, echo=FALSE}
-site_profile <- read_csv("data/site_profile.csv")
-```
+
 
 This forest stand represents a typical continental woodland in Croatia's lowland Pannonian region (97m elevation). With moderately acidic soil (pH 5.90) optimal for oak species, high organic carbon content (47.7 g/kg), and substantial tree cover (61%), it represents a well-established, productive forest ecosystem with effective nutrient cycling. The climate conditions (10.98°C annual temperature, 925mm precipitation) are characteristic of the sub-Pannonian zone, creating ideal conditions for deciduous forest communities. These parameters indicate a healthy, managed forest system that balances ecological functions with sustainable forestry practices.
 
@@ -418,7 +420,8 @@ This forest stand represents a typical continental woodland in Croatia's lowland
 
 Once you've accessed and processed your geographic data, you may want to export it for use in other software or to share with colleagues:
 
-```{r export-data, eval=FALSE}
+
+``` r
 # Export raster data to GeoTIFF for use in GIS software
 writeRaster(croatia_elevation, "data/exports/croatia_elevation.tif", overwrite=TRUE)
 writeRaster(croatia_soil_ph, "data/exports/croatia_soil_ph.tif", overwrite=TRUE)
