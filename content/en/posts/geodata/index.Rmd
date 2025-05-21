@@ -296,7 +296,7 @@ knitr::include_graphics("images/croatia_precip.png")
 
 ### 5. Species Occurrence Data
 
-For biodiversity and species distribution studies, `geodata` provides direct access to GBIF (Global Biodiversity Information Facility) data:
+For biodiversity and species distribution studies, geodata provides direct access to GBIF (Global Biodiversity Information Facility) data:
 
 ```{r species, eval=FALSE}
 # Check the number of records first (without downloading)
@@ -420,19 +420,10 @@ site_profile
 
 
 ```{r, echo=FALSE}
-site_profile <- read_csv("data/site_profile.csv")
+site_profile <- read_csv("data/site_profile_transposed.csv")
 
-site_profile_long <- site_profile %>%
-  tidyr::pivot_longer(cols = everything(), 
-                      names_to = "Variable", 
-                      values_to = "Value")
+site_profile
 
-
-knitr::kable(site_profile_long, 
-             format = "html", 
-             caption = "Forest Stand 1 Characteristics",
-             col.names = c("Variable", "Value"),
-             align = c('l', 'c'))
 ```
 
 <br>

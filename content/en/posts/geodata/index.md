@@ -32,6 +32,7 @@ In this tutorial, I'll show you exactly how the geodata R package gives research
 
 <br>
 <br>
+
 ## Why Geographic Data Collection Frustrates Forest Researchers
 
 Here's the typical researcher workflow:
@@ -44,6 +45,7 @@ Here's the typical researcher workflow:
 But here's what changes everything: The geodata package provides instant access to high-quality geographic datasets with just a few lines of R code.
 
 <br>
+
 ## The geodata Package: A Complete Geographic Data Solution
 
 The geodata package is a powerful R tool that provides direct access to a wide range of geographic datasets:
@@ -89,11 +91,11 @@ packageVersion("terra")    # Should be 1.7+ for best performance
 ```
 
 <br>
+
 ## Tutorial: Accessing Key Forest-Relevant Datasets
 
 Let's explore the various geographic datasets available through geodata that are particularly valuable for forestry research.
 
-<br>
 ### 1. Elevation Data
 
 Terrain characteristics significantly influence forest growth, species distribution, and management practices:
@@ -123,6 +125,7 @@ plot(croatia_elevation, main = "Elevation in Croatia (m)",
 </div>
 
 <br>
+
 ### 2. Soil Properties
 
 Soil characteristics are crucial for understanding forest productivity and species distribution:
@@ -156,7 +159,7 @@ Other valuable soil variables include:
 - "soc" - Soil organic carbon (g/kg)
 - "bdod" - Bulk density (kg/m³)
 
-And multiple depth options (5, 15, 30, 60, 100, 200)
+And multiple depth options (5, 15, 30, 60, 100, 200).
 
 
 The geodata package provides access to global Soil Organic Carbon (SOC) data through its soil_world() function, which retrieves standardized measurements from the SoilGrids database. SOC values, expressed in g/kg, represent carbon stored in soil organic matter at various depths, with the topsoil (0-5cm) typically showing the highest concentrations. 
@@ -188,6 +191,7 @@ plot(croatia_soil_soc,
 </div>
 
 <br>
+
 ### 3. Land Cover Data
 
 Forest cover and land use are essential for forestry research:
@@ -229,6 +233,7 @@ Other landcover variables include:
 - "water" - Water percentage
 
 <br>
+
 ### 4. Bioclimatic Variables
 
 The 19 bioclimatic variables represent climate factors particularly relevant to biological species:
@@ -284,10 +289,12 @@ plot(croatia_forest_climate,
 <img src="images/croatia_precip.png" alt="Annual Precipitation in Croatia (mm)" width="60%" />
 <p class="caption"><span id="fig:unnamed-chunk-6"></span>Figure 6: Annual Precipitation in Croatia (mm)</p>
 </div>
+
 <br>
+
 ### 5. Species Occurrence Data
 
-For biodiversity and species distribution studies, `geodata` provides direct access to GBIF (Global Biodiversity Information Facility) data:
+For biodiversity and species distribution studies, geodata provides direct access to GBIF (Global Biodiversity Information Facility) data:
 
 
 ``` r
@@ -333,6 +340,7 @@ The species occurrence functionality allows you to:
 - Access metadata like collection date and basis of record
 
 <br>
+
 ### 6. Administrative Boundaries
 
 Administrative boundaries are useful for forest management and planning:
@@ -356,6 +364,7 @@ plot(croatia_regions, main = "Administrative Regions of Croatia", col = forest_p
 </div>
 
 <br>
+
 ## BONUS: Forest Site Characterization in Croatia
 
 Now let's combine multiple datasets to create a comprehensive geographic profile for a specific forest site:
@@ -413,37 +422,23 @@ site_profile
 ```
 
 
-<table style="width:100%;">
-<caption><span id="tab:unnamed-chunk-9"></span>Table 1: Forest Stand 1 Characteristics</caption>
- <thead>
-  <tr>
-   <th style="text-align:center;"> Site_Name </th>
-   <th style="text-align:center;"> Longitude </th>
-   <th style="text-align:center;"> Latitude </th>
-   <th style="text-align:center;"> Elevation_m </th>
-   <th style="text-align:center;"> Soil_pH </th>
-   <th style="text-align:center;"> Soil_Organic_Carbon_g_kg </th>
-   <th style="text-align:center;"> Tree_Cover_Pct </th>
-   <th style="text-align:center;"> Annual_Mean_Temp_C </th>
-   <th style="text-align:center;"> Annual_Precipitation_mm </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:center;"> Forest Stand 1 </td>
-   <td style="text-align:center;"> 16.2 </td>
-   <td style="text-align:center;"> 45.5 </td>
-   <td style="text-align:center;"> 97 </td>
-   <td style="text-align:center;"> 5.9 </td>
-   <td style="text-align:center;"> 47.7 </td>
-   <td style="text-align:center;"> 61.01 </td>
-   <td style="text-align:center;"> 1.0975 </td>
-   <td style="text-align:center;"> 925 </td>
-  </tr>
-</tbody>
-</table>
 
+```
+#> # A tibble: 9 × 2
+#>   Variable                     Value         
+#>   <chr>                        <chr>         
+#> 1 Site Name                    Forest Stand 1
+#> 2 Longitude (°E)               16.2          
+#> 3 Latitude (°N)                45.5          
+#> 4 Elevation (m)                97            
+#> 5 Soil pH                      5.9           
+#> 6 Soil Organic Carbon (g/kg)   47.7          
+#> 7 Tree Cover (%)               61.0          
+#> 8 Annual Mean Temperature (°C) 11.0          
+#> 9 Annual Precipitation (mm)    925
+```
 
+<br>
 
 This forest stand represents a typical continental woodland in Croatia's lowland Pannonian region (97m elevation). With moderately acidic soil (pH 5.90) optimal for oak species, high organic carbon content (47.7 g/kg), and substantial tree cover (61%), it represents a well-established, productive forest ecosystem with effective nutrient cycling. The climate conditions (10.98°C annual temperature, 925mm precipitation) are characteristic of the sub-Pannonian zone, creating ideal conditions for deciduous forest communities. These parameters indicate a healthy, managed forest system that balances ecological functions with sustainable forestry practices.
 
@@ -483,7 +478,9 @@ This makes it easy to:
 3. Include in reports or presentations
 4. Perform further analysis in other environments
 
+
 <br>
+
 ## Real Results from Forest Research
 
 Here's what this workflow delivers for forest researchers:
@@ -495,6 +492,7 @@ Here's what this workflow delivers for forest researchers:
 ✅ Integrated Analysis: Seamless use with modern spatial packages  
 
 <br>
+
 ## References
 
 1. Hijmans, R.J. (2024). [geodata: Download Geographic Data](https://CRAN.R-project.org/package=geodata). R package version 0.6-2.
