@@ -26,6 +26,7 @@ knitr::opts_chunk$set(
   prompt = FALSE    
 )
 library(tidyverse) 
+library(tidyr)
 ```
 
 
@@ -42,7 +43,10 @@ But what if I told you that you could:
 * Transform days of manual work into a 5-minute automated process ✅
 * Generate publication-ready visualizations with minimal code 📊
 
-In this tutorial, I'll show you exactly how the `geodata` R package gives researchers immediate access to important geographic datasets. You'll see examples with complete code that you can adapt for your own projects.
+In this tutorial, I'll show you exactly how the geodata R package gives researchers immediate access to important geographic datasets. You'll see examples with complete code that you can adapt for your own projects.
+
+<br>
+<br>
 
 ## Why Geographic Data Collection Frustrates Forest Researchers
 
@@ -54,6 +58,8 @@ Here's the typical researcher workflow:
 - Quality control nightmares - Checking for missing values, outliers, and errors
 
 But here's what changes everything: The geodata package provides instant access to high-quality geographic datasets with just a few lines of R code.
+
+<br>
 
 ## The geodata Package: A Complete Geographic Data Solution
 
@@ -98,6 +104,8 @@ packageVersion("geodata")  # Should be 0.6-2 or newer
 packageVersion("terra")    # Should be 1.7+ for best performance
 ```
 
+<br>
+
 ## Tutorial: Accessing Key Forest-Relevant Datasets
 
 Let's explore the various geographic datasets available through geodata that are particularly valuable for forestry research.
@@ -128,6 +136,7 @@ plot(croatia_elevation, main = "Elevation in Croatia (m)",
 knitr::include_graphics("images/elevation.png")
 ```
 
+<br>
 
 ### 2. Soil Properties
 
@@ -154,22 +163,16 @@ knitr::include_graphics("images/croatia_soil_ph.png")
 ```
 
 Other valuable soil variables include:
-- `"clay"` - Clay content (%)
-- `"silt"` - Silt content (%)
-- `"sand"` - Sand content (%)
-- `"soc"` - Soil organic carbon (g/kg)
-- `"bdod"` - Bulk density (kg/m³)
+- "clay" - Clay content (%)
+- "silt" - Silt content (%)
+- "sand" - Sand content (%)
+- "soc" - Soil organic carbon (g/kg)
+- "bdod" - Bulk density (kg/m³)
 
-And multiple depth options:
-- `depth = 5` (0-5cm)
-- `depth = 15` (5-15cm)
-- `depth = 30` (15-30cm)
-- `depth = 60` (30-60cm)
-- `depth = 100` (60-100cm)
-- `depth = 200` (100-200cm)
+And multiple depth options (5, 15, 30, 60, 100, 200).
 
 
-The `geodata` package provides access to global Soil Organic Carbon (SOC) data through its `soil_world()` function, which retrieves standardized measurements from the SoilGrids database. SOC values, expressed in g/kg, represent carbon stored in soil organic matter at various depths, with the topsoil (0-5cm) typically showing the highest concentrations. 
+The geodata package provides access to global Soil Organic Carbon (SOC) data through its soil_world() function, which retrieves standardized measurements from the SoilGrids database. SOC values, expressed in g/kg, represent carbon stored in soil organic matter at various depths, with the topsoil (0-5cm) typically showing the highest concentrations. 
 
 Let's also look at SOC, an important indicator of soil fertility:
 
@@ -195,6 +198,7 @@ plot(croatia_soil_soc,
 knitr::include_graphics("images/croatia_soil_soc.png")
 ```
 
+<br>
 
 ### 3. Land Cover Data
 
@@ -227,12 +231,14 @@ knitr::include_graphics("images/croatia_trees.png")
 ```
 
 Other landcover variables include:
-- `"crops"` - Cropland percentage
-- `"urban"` - Urban/built-up percentage
-- `"grass"` - Grassland percentage
-- `"shrub"` - Shrubland percentage
-- `"wetland"` - Wetland percentage
-- `"water"` - Water percentage
+- "crops" - Cropland percentage
+- "urban" - Urban/built-up percentage
+- "grass" - Grassland percentage
+- "shrub" - Shrubland percentage
+- "wetland" - Wetland percentage
+- "water" - Water percentage
+
+<br>
 
 ### 4. Bioclimatic Variables
 
@@ -286,6 +292,8 @@ knitr::include_graphics("images/croatia_temp.png")
 knitr::include_graphics("images/croatia_precip.png")
 ```
 
+<br>
+
 ### 5. Species Occurrence Data
 
 For biodiversity and species distribution studies, `geodata` provides direct access to GBIF (Global Biodiversity Information Facility) data:
@@ -318,7 +326,7 @@ points(oak_croatia$lon, oak_croatia$lat, col="darkgreen", pch=19, cex=0.8)
 
 ```
 
-**Important tip:** When working with species occurrence data, always check the count first with `download=FALSE` to avoid errors with very common species. GBIF has a 100,000 record limit per request.
+**Important tip:** When working with species occurrence data, always check the count first with download=FALSE to avoid errors with very common species. GBIF has a 100,000 record limit per request.
 
 ```{r, echo=FALSE, fig.cap="Quercus robur occurrences in Croatia"}
 knitr::include_graphics("images/oak_occurrences.png")
@@ -331,6 +339,7 @@ The species occurrence functionality allows you to:
 - Crop results to specific country boundaries
 - Access metadata like collection date and basis of record
 
+<br>
 
 ### 6. Administrative Boundaries
 
@@ -352,6 +361,8 @@ plot(croatia_regions, main = "Administrative Regions of Croatia", col = forest_p
 knitr::include_graphics("images/croatia_regions.png")
 ```
 
+<br>
+
 ## BONUS: Forest Site Characterization in Croatia
 
 Now let's combine multiple datasets to create a comprehensive geographic profile for a specific forest site:
@@ -369,7 +380,7 @@ extract_point_data <- function(raster, location) {
     result <- terra::extract(raster, point)
     
     if(length(result) > 0 && nrow(result) > 0) {
-        return(as.numeric(result[1, -1])) # Preskoči ID stupac
+        return(as.numeric(result[1, -1])) 
     }
     
     return(NA)
@@ -410,9 +421,25 @@ site_profile
 
 ```{r, echo=FALSE}
 site_profile <- read_csv("data/site_profile.csv")
+
+site_profile_long <- site_profile %>%
+  tidyr::pivot_longer(cols = everything(), 
+                      names_to = "Variable", 
+                      values_to = "Value")
+
+
+knitr::kable(site_profile_long, 
+             format = "html", 
+             caption = "Forest Stand 1 Characteristics",
+             col.names = c("Variable", "Value"),
+             align = c('l', 'c'))
 ```
 
+<br>
+
 This forest stand represents a typical continental woodland in Croatia's lowland Pannonian region (97m elevation). With moderately acidic soil (pH 5.90) optimal for oak species, high organic carbon content (47.7 g/kg), and substantial tree cover (61%), it represents a well-established, productive forest ecosystem with effective nutrient cycling. The climate conditions (10.98°C annual temperature, 925mm precipitation) are characteristic of the sub-Pannonian zone, creating ideal conditions for deciduous forest communities. These parameters indicate a healthy, managed forest system that balances ecological functions with sustainable forestry practices.
+
+<br>
 
 ## Exporting Data for Further Analysis
 
@@ -447,29 +474,20 @@ This makes it easy to:
 3. Include in reports or presentations
 4. Perform further analysis in other environments
 
+
+<br>
+
 ## Real Results from Forest Research
 
 Here's what this workflow delivers for forest researchers:
 
-✅ Time Savings: Geographic data collection reduced from days to minutes
-✅ Comprehensive Data: Access to multiple datasets from a single interface
-✅ Consistent Formats: All data in compatible spatial formats
-✅ Reproducibility: Code-based workflows for transparent methods
-✅ Integrated Analysis: Seamless use with modern spatial packages
+✅ Time Savings: Geographic data collection reduced from days to minutes  
+✅ Comprehensive Data: Access to multiple datasets from a single interface  
+✅ Consistent Formats: All data in compatible spatial formats  
+✅ Reproducibility: Code-based workflows for transparent methods  
+✅ Integrated Analysis: Seamless use with modern spatial packages  
 
-
-## Need Advanced Forest Data Science?
-
-I help research organizations transform their data workflows from manual to automated, providing comprehensive services from statistical analysis and modeling to spatial data integration and advanced visualizations. If you're spending days on data collection and processing instead of focusing on analysis and insights, let's talk about how custom R solutions can streamline your research pipeline.
-
-My clients typically see:
-
-* 90% reduction in data processing time
-* Improved accuracy through automated workflows
-* Rigorous statistical insights that strengthen research conclusions
-* Reproducible analyses that scale across projects
-
-Contact me: marijana@andalytics.com
+<br>
 
 ## References
 
@@ -483,5 +501,23 @@ Contact me: marijana@andalytics.com
 
 5. ISRIC - World Soil Information (2023). [SoilGrids - Global Gridded Soil Information](https://soilgrids.org/). 250m resolution soil property maps.
 
+<br>
+<br>
 
-*This post is part of my R for Forest Science series.*
+---
+
+<br>
+
+**Need Advanced Forest Data Science?**
+
+*I help research organizations transform their data workflows from manual to automated, providing comprehensive services from statistical analysis and modeling to spatial data integration and advanced visualizations. If you're spending days on data collection and processing instead of focusing on analysis and insights, let's talk about how custom R solutions can streamline your research pipeline.*
+
+*My clients typically see:*
+
+* *90% reduction in data processing time*
+* *Improved accuracy through automated workflows*
+* *Rigorous statistical insights that strengthen research conclusions*
+* *Reproducible analyses that scale across projects*
+
+*Contact me: marijana@andalytics.com*
+
