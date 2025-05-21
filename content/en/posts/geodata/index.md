@@ -1,14 +1,14 @@
 ---
 title: "Geographic Data for Forestry Research Made Easy: The R geodata Package"
 author: "Marijana Andabaka"
-date: "r Sys.Date()"
+date: "2025-05-21"
 slug: "geodata-forest-research"
 categories: ["R", "Forest Research", "Geographic Data", "Spatial Analysis"]
 tags: ["geodata", "R", "forest science", "soil data", "elevation", "land cover", "climate data", "species occurrence", "GBIF", "WorldClim", "spatial analysis", "GIS"]
 summary: "Learn how to transform geographic data acquisition for forest research using the geodata R package - access elevation, soil, climate, land cover and species occurrence datasets in minutes instead of days."
 description: "A comprehensive guide to using the geodata R package for forestry research. This tutorial covers streamlined access to global geographic datasets, practical code examples for extracting forest-relevant variables, and techniques for creating comprehensive site profiles for forest management and research."
 layout: rmarkdown
-imageAttribution: 'Photo by <a href="https://unsplash.com/@fabulu75?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash" target="_blank">Fabrice Villard</a>'
+imageAttribution: 'Photo by <a href="https://www.pexels.com/photo/leafless-tree-on-the-field-6056496/" target="_blank">cottonbro studio</a>'
 ---
 
       
