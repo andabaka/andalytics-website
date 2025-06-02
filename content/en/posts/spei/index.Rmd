@@ -1,0 +1,402 @@
+---
+title: "Drought Stress in Forests: Mastering the SPEI Package for Climate Analysis"
+author: "Marijana Andabaka"
+date: "`r Sys.Date()`"
+slug: "spei-drought-analysis-forests"
+categories: ["R", "Forest Research", "Climate Analysis", "Drought Monitoring"]
+tags: ["SPEI", "drought index", "climate analysis", "forest stress", "evapotranspiration", "R", "forest science", "climate change", "precipitation", "temperature", "forest management", "ecological modeling", "time series analysis", "climate data"]
+summary: "Master forest drought analysis with the SPEI package - detect drought stress months before visible symptoms and create standardized assessments across multiple ecological time scales."
+description: "A comprehensive tutorial on implementing drought stress analysis in forest research using the SPEI (Standardized Precipitation-Evapotranspiration Index) package in R. Learn to calculate multi-temporal drought indices, create publication-ready visualizations, and connect drought patterns to forest health outcomes for climate-smart forest management."
+layout: rmarkdown
+imageAttribution: 'Photo by <a href="https://unsplash.com/@bogomil" target="_blank">Bogomil Mihaylov</a> on <a href="https://unsplash.com" target="_blank">Unsplash</a>'
+---
+
+      
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  cache = TRUE,
+  fig.align = 'center',
+  fig.cap = TRUE,
+  out.width = '80%',
+  collapse = TRUE,  
+  comment = "#>",   
+  prompt = FALSE    
+)
+```
+
+
+
+## Are you still using rainfall totals to assess forest drought risk?
+
+But what if I told you that you could:
+
+• **Detect drought stress months before visible symptoms appear** ⏱️  
+• **Quantify drought impacts across multiple ecological time scales** 🌲  
+• **Create standardized assessments comparable across forest regions** 📊  
+• **Generate publication-ready visualizations with minimal code** ✅  
+
+<br>
+
+Quantifying drought stress has become absolutely critical for forest research in today's climate-changing world. The Standardized Precipitation-Evapotranspiration Index (SPEI) provides a sophisticated framework that separates basic drought monitoring from truly actionable insights.
+
+This tutorial demonstrates a complete SPEI analysis workflow, taking you from raw climate data to publication-ready drought visualizations that reveal patterns invisible to traditional methods.
+
+Let's explore how the SPEI package delivers insight into drought patterns affecting forest ecosystems.
+
+<br>
+
+## Why Traditional Drought Monitoring Falls Short
+
+Here's the typical forest researcher approach to drought assessment:
+
+- **Rainfall-only analysis** - Focus solely on precipitation totals
+- **Single time scale** - Miss complex ecological response patterns  
+- **Regional inconsistency** - No standardized comparison method
+- **Temperature blindness** - Ignore evapotranspiration effects
+
+But here's what changes everything: The SPEI package provides a comprehensive drought assessment that accounts for both precipitation inputs and atmospheric water demand.
+
+<br>
+
+## The SPEI Advantage for Forest Research
+
+The SPEI index, developed by Vicente-Serrano et al. (2010), addresses critical limitations in traditional drought indices by incorporating both precipitation and temperature effects on evapotranspiration.SPEI values are standardized with a mean of 0 and standard deviation of 1, typically ranging from -3 to +3, where negative values indicate drought conditions (SPEI < -1.0 = moderate drought, < -1.5 = severe drought, < -2.0 = extreme drought) and positive values represent wet conditions.
+
+<br>
+
+### How SPEI Outperforms Other Drought Indices
+
+🟢 Compared to Palmer Drought Severity Index (PDSI), SPEI uses standardized values (comparable across regions) vs. PDSI's location-specific values. SPEI offers flexible time scales vs. PDSI's fixed ~9-month scale, and SPEI has simpler calculation requirements, and faster computation.
+
+🟢 Compared to Standardized Precipitation Index (SPI), SPEI includes temperature effects on evapotranspiration vs. SPI's precipitation-only approach. SPEI better captures drought intensity under warming conditions, and provides more accurate forest stress assessment in changing climates.
+
+<br>
+
+### Multi-temporal Analysis: Matching Drought Scales to Forest Processes
+
+This is where SPEI becomes truly powerful for forest research - different time scales capture distinct ecological responses:
+
+- 1-Month SPEI: Immediate Physiological Responses
+
+Represents water balance over the current month capturing acute drought stress and immediate tree responses.
+
+- 6-Month SPEI: Seasonal Growth Impacts
+
+Integrates water balance over the past 6 months (current growing season) reflecting seasonal drought effects on annual growth, ring formation, and reproduction.
+
+- 12-Month SPEI: Annual Stress Patterns
+
+Accumulates water balance over 12 months (full annual cycle) showing moderate-term drought impacts on crown condition and tree vigor. Key indicator for forest health assessments and management decisions.
+
+- 24-Month SPEI: Long-term Drought Conditions
+
+Represents cumulative water balance over 2 years identifying chronic drought stress leading to mortality and ecosystem changes.
+
+<br>
+
+### Key Technical Advantages
+
+- Temperature Sensitivity: Accounts for increased evapotranspiration in warming climates  
+- Standardized Values: SPEI values are normally distributed (mean = 0, SD = 1)  
+- Research Foundation: Used in thousands of peer-reviewed studies worldwide  
+
+<br>
+
+## The 5-Step SPEI Analysis Framework
+
+### Step 1: Environment Setup and Data Preparation
+
+```{r}
+# Install required packages if needed
+# install.packages(c("SPEI", "tidyverse", "terra", "geodata"))
+
+# Load libraries
+library(SPEI)         # Drought index calculations
+library(tidyverse)    # Data manipulation and visualization
+library(terra)        # Spatial data handling
+library(geodata)      # Climate data access
+
+# Create organized directory structure
+data_dir <- "data"
+dir.create(data_dir, showWarnings = FALSE)
+dir.create(file.path(data_dir, "climate"), showWarnings = FALSE)
+dir.create(file.path(data_dir, "exports"), showWarnings = FALSE)
+
+# Define forest-themed visualization palette
+forest_palette <- colorRampPalette(c("#FFF7BC", "#D9F0A3", "#78C679", "#31A354", "#006837"))
+
+# Load climate data
+forest_site_climate <- read_csv("data/climate.csv")
+
+# Preview the data structure
+head(forest_site_climate)
+```
+
+<br>
+
+### Step 2: Calculate Potential Evapotranspiration
+
+The SPEI package provides multiple methods for calculating potential evapotranspiration (PET) based on available data. Important note: All PET calculation methods require the latitude of your study site, as solar radiation varies significantly with geographic location.
+
+```{r}
+# Extract site latitude (required for all PET calculations)
+site_latitude <- unique(forest_site_climate$lat)[1]  # 45.1°N for our forest site
+
+# Method 1: Thornthwaite 
+forest_site_climate$PET_thorn <- thornthwaite(Tave = forest_site_climate$tmean, 
+                                             lat = site_latitude)
+
+# Method 2: Hargreaves 
+forest_site_climate$PET_harg <- hargreaves(Tmin = forest_site_climate$tmin,
+                                          Tmax = forest_site_climate$tmax,
+                                          lat = site_latitude)
+
+# Method 3: Penman-Monteith (most accurate - requires additional weather data)
+# This method needs wind speed, humidity, solar radiation data
+# We'll use Hargreaves for this example as it balances accuracy with data requirements
+
+# Calculate water balance (Precipitation - Potential Evapotranspiration)
+forest_site_climate$water_balance <- forest_site_climate$prec - forest_site_climate$PET_harg
+```
+
+
+These methods offer different levels of complexity and accuracy:
+
+- Thornthwaite: Simplest method, only needs temperature data. Good for basic analyses when data is limited.
+
+- Hargreaves: Recommended balance of accuracy and simplicity. Uses temperature range to better estimate PET.
+
+- Penman-Monteith: Most physically-based and accurate, but requires comprehensive weather station data (wind, humidity, solar radiation).
+
+Why latitude matters: Potential evapotranspiration depends heavily on incoming solar radiation, which varies dramatically with latitude and season. The SPEI package uses your site's latitude to calculate accurate solar radiation estimates for each month, ensuring your drought analysis reflects the actual evaporative demand at your forest location.
+
+For forest research, I typically recommend the Hargreaves method as it provides good accuracy while requiring only temperature data that's readily available from most weather stations or climate datasets.
+
+<br>
+
+### Step 3: Calculate SPEI at Multiple Time Scales
+
+This is where SPEI really shines - analyzing drought across different ecological response windows:
+
+```{r}
+# Calculate SPEI at different temporal scales
+spei_3 <- spei(forest_site_climate$water_balance, scale = 3)   # 3-month
+spei_6 <- spei(forest_site_climate$water_balance, scale = 6)   # 6-month  
+spei_12 <- spei(forest_site_climate$water_balance, scale = 12) # 12-month
+spei_24 <- spei(forest_site_climate$water_balance, scale = 24) # 24-month
+
+# Check calculations
+spei_3
+
+# Extract fitted values and add to dataframe
+forest_site_climate$SPEI_3 <- as.numeric(spei_3$fitted)
+forest_site_climate$SPEI_6 <- as.numeric(spei_6$fitted)
+forest_site_climate$SPEI_12 <- as.numeric(spei_12$fitted)
+forest_site_climate$SPEI_24 <- as.numeric(spei_24$fitted)
+```
+
+How SPEI Time Scales Work:
+
+SPEI time scales represent rolling accumulation periods. For example:
+
+➡️ **3-month SPEI for June** = water balance accumulated over April + May + June
+
+➡️ **12-month SPEI for June** = water balance accumulated over July (previous year) through June (current year)
+
+➡️ **24-month SPEI for June** = water balance accumulated over June (two years ago) through June (current year)
+
+This rolling calculation captures how forests actually experience drought - they respond not just to current conditions, but to the cumulative water stress over preceding months or years.
+
+📝 **Important Notes:**
+
+Initial NA Values: Notice that longer time scales have more NA values at the beginning of your time series. This is normal - you need at least 24 months of data before you can calculate a 24-month SPEI value.
+
+Matching Scales to Research Questions: Choose your time scale based on what forest process you're studying:
+
+✅ **3-month SPEI:** Perfect for understanding short-term forest productivity changes.
+
+✅ **6-month SPEI:** Critical for understanding yearly growth variations.
+
+✅ **12-month SPEI:** Shows longer-term water stress
+
+✅ **24-month SPEI:** Essential for understanding climate change impacts.
+
+
+Cumulative Nature: Longer time scales "smooth out" short-term variability and reveal persistent drought patterns. A single dry month might show up strongly in 3-month SPEI but barely register in 24-month SPEI if surrounded by normal conditions.
+
+<br>
+
+### Step 4: Create Publication-Ready Visualizations
+Transform your analysis into compelling visuals that communicate drought patterns effectively:
+
+```{r, fig.cap="Multi-scale SPEI analysis showing drought patterns across different ecological time scales."}
+# Prepare data 
+spei_long <- forest_site_climate %>%
+    mutate(date = as.Date(paste(year, month, 1, sep = "-"))) %>% 
+    select(date, SPEI_3, SPEI_6, SPEI_12, SPEI_24) %>%
+    pivot_longer(cols = starts_with("SPEI"), 
+                 names_to = "timescale", 
+                 values_to = "spei_value") %>%
+    filter(!is.na(spei_value)) %>%
+    mutate(timescale = factor(timescale, 
+                              levels = c("SPEI_3", "SPEI_6", "SPEI_12", "SPEI_24"),
+                              labels = c("3-month", "6-month", "12-month", "24-month")))
+
+    ggplot(spei_long, aes(x = date, y = spei_value)) +
+    # Add horizontal reference line
+    geom_hline(yintercept = 0, color = "black", linetype = "solid", size = 0.5) +       # Normal     conditions
+ 
+    # Create colored bars 
+    geom_col(aes(fill = ifelse(spei_value >= 0, "Wet", "Drought")), 
+             width = 25, alpha = 0.7) + 
+    
+    # Custom colors for the bars
+    scale_fill_manual(values = c("Drought" = "red", "Wet" = "blue"),
+                      name = "Condition") +
+    
+    # Facet by time scale
+    facet_wrap(~timescale, ncol = 1, scales = "fixed") +
+    
+    # Customize x-axis to show your study period
+    scale_x_date(date_breaks = "10 years", date_labels = "%Y",
+                 limits = as.Date(c("1960-01-01", "2018-12-31"))) +
+    
+    # Set y-axis limits to match your reference image
+    scale_y_continuous(limits = c(-3, 3), breaks = seq(-2, 2, 1)) +
+    
+    # Labels and styling
+    labs(
+        title = "Multi-Scale Drought Analysis for Forest Site (1960-2018)",
+        subtitle = "SPEI reveals drought patterns across different ecological time scales",
+        x = "Year",
+        y = "SPEI Value",
+        caption = "Red bars: drought conditions | Blue bars: wet conditions\nModerate drought: SPEI < -1.0 | Severe drought: SPEI < -1.5 | Extreme drought: SPEI < -2.0"
+    ) +
+    
+    # Clean, publication-ready theme
+    theme_minimal() +
+    theme(
+        plot.title = element_text(size = 16, face = "bold", margin = margin(b = 10)),
+        plot.subtitle = element_text(size = 12, color = "gray30", margin = margin(b = 15)),
+        strip.text = element_text(size = 12, face = "bold", margin = margin(b = 5)),
+        panel.grid.minor = element_blank(),
+        panel.grid.major.x = element_line(color = "gray90", size = 0.3),
+        panel.grid.major.y = element_line(color = "gray90", size = 0.3),
+        axis.text.x = element_text(angle = 0, hjust = 0.5),
+        plot.caption = element_text(size = 9, color = "gray50", hjust = 0),
+        panel.spacing = unit(0.8, "lines"),
+        legend.position = "none"  
+    )
+```
+
+<br>
+
+### Step 5: Drought Event Analysis and Characterization
+Identify and analyze significant drought events for forest impact assessment:
+
+```{r}
+# Define drought severity categories
+drought_categories <- function(spei) {
+  case_when(
+    spei >= 2.0   ~ "Extremely wet",
+    spei >= 1.5   ~ "Very wet", 
+    spei >= 1.0   ~ "Moderately wet",
+    spei >= -1.0  ~ "Normal",
+    spei >= -1.5  ~ "Moderately dry",
+    spei >= -2.0  ~ "Severely dry", 
+    TRUE          ~ "Extremely dry"
+  )
+}
+
+# Identify extreme drought events (SPEI < -1.5)
+extreme_droughts <- forest_site_climate %>%
+  filter(SPEI_12 < -1.5) %>%
+  mutate(drought_category = drought_categories(SPEI_12)) %>%
+  select(year, month, SPEI_12, drought_category)
+
+# Summarize drought characteristics
+drought_summary <- extreme_droughts %>%
+  arrange(year, month) %>%
+  mutate(
+    year_month = year + (month - 1) / 12,
+    month_diff = c(1, diff(year_month)),
+    drought_event = cumsum(month_diff > 0.15)  # Group consecutive months
+  ) %>%
+  group_by(drought_event) %>%
+  summarise(
+    start_year = min(year),
+    start_month = month[which.min(year_month)],
+    end_year = max(year),
+    end_month = month[which.max(year_month)],
+    duration_months = n(),
+    min_spei = min(SPEI_12),
+    mean_spei = mean(SPEI_12)
+  ) %>%
+  arrange(min_spei)
+
+print(drought_summary)
+
+# Show key drought events with SPEI values
+drought_summary %>%
+  select(start_year, duration_months, min_spei, mean_spei) %>%
+  slice_min(min_spei, n = 5) %>%
+  mutate(
+    min_spei = round(min_spei, 2),
+    mean_spei = round(mean_spei, 2)
+  ) %>%
+  print()
+```
+
+13 distinct drought events were identified over the study period, with the most severe reaching SPEI values of -2.25 in 1990. The longest drought lasted 10 months (2011-2012), creating sustained stress that would significantly impact forest health and growth.
+
+<br>
+
+## Real Results from Forest Research
+This SPEI analysis workflow delivers measurable benefits for forest researchers:
+
+✅ Enhanced Predictive Capability: Detect drought stress months before visible symptoms
+
+✅ Standardized Assessment: Compare drought impacts across regions and forest types
+
+✅ Multi-scale Understanding: Match analysis to specific ecological processes
+
+✅ Climate-Smart Management: Incorporate temperature effects in drought planning
+
+✅ Reproducible Methods: Code-based workflows ensure transparent, repeatable analysis
+
+
+<br>
+
+## References
+
+1. Hargreaves, G.H., & Samani, Z.A. (1985). Reference crop evapotranspiration from temperature. *Applied Engineering in Agriculture*, 1(2), 96-99. [https://doi.org/10.13031/2013.26773](https://doi.org/10.13031/2013.26773)
+
+2. Palmer, W.C. (1965). Meteorological drought. *Research Paper No. 45*, U.S. Department of Commerce, Weather Bureau, Washington, D.C.
+
+3. Thornthwaite, C.W. (1948). An approach toward a rational classification of climate. *Geographical Review*, 38(1), 55-94. [https://doi.org/10.2307/210739](https://doi.org/10.2307/210739)
+
+4. Vicente-Serrano, S.M. (2024). SPEI: Calculation of the Standardised Precipitation-Evapotranspiration Index. R package version 1.8.1. [https://CRAN.R-project.org/package=SPEI](https://CRAN.R-project.org/package=SPEI)
+
+<br>
+<br>
+
+---
+
+<br>
+
+**Need Advanced Forest Data Science?**
+
+*I help research organizations transform their data workflows from manual to automated, providing comprehensive services from statistical analysis and modeling to spatial data integration and advanced visualizations. If you're spending days on data collection and processing instead of focusing on analysis and insights, let's talk about how custom R solutions can streamline your research pipeline.*
+
+*My clients typically see:*
+
+* *90% reduction in data processing time*
+* *Improved accuracy through automated workflows*
+* *Rigorous statistical insights that strengthen research conclusions*
+* *Reproducible analyses that scale across projects*
+
+📩*Contact me: marijana@andalytics.com*
+
