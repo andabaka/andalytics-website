@@ -13,17 +13,19 @@ contentDir = "content/hr"
     preTitle = 'andalytics by'
     title = "marijana andabaka"
     intro= """
-### Obrada podataka koja traje mjesecima? Završite je za nekoliko sati
+### R rješenja za šumarska istraživanja
 ___
 
-Automatizacija analize podataka za znanstveno-istraživačke institucije s posebnim fokusom na šumarske znanosti. 
-Područja ekspertize:
-- **R programiranje** za automatizaciju istraživačkih procesa
-- Analiza **istraživačkih podataka u šumarstvu**
-- Integracija **prostornih podataka**
-- Obrada **klimatskih podataka**
+Napredne statističke analize i R rješenja za šumarska i ekološka istraživanja.
+Kombiniranje doktorske ekspertize u šumarstvu s analitičkim metodama za pretvaranje podataka u znanstvene uvide.
 
-Kao doktorica šumarskih znanosti sa 7 godina akademskog istraživačkog iskustva, razumijem izazove obrade vaših istraživačkih podataka.
+Područja ekspertize:
+- **Statistička analiza i modeliranje** ekoloških i šumarskih podataka
+- **Integracija prostornih podataka** (GIS, remote sensing, terenska mjerenja)
+- **R programiranje** za istraživačke workflow-e
+- **Analiza climate-forest interakcija**
+
+Kao doktorica šumarskih znanosti sa 7+ godina istraživačkog iskustva, razumijem i znanstvena pitanja i analitičke izazove šumarskih istraživanja.
         """
     mainButton = "Usluge"
     mainButtonRef = "/usluge"
@@ -51,34 +53,31 @@ Kao doktorica šumarskih znanosti sa 7 godina akademskog istraživačkog iskustv
     submitBtn = "Pošalji upit"
 
 [params.services]
-  title = "Usluge obrade istraživačkih podataka"
-  description = """Pretvaram složene istraživačke podatake u znanstveno upotrebljive rezultate. 
-  Pružam ekspertizu u šumarskim znanostima uz podršku ostalim istraživačkim institucijama u automatizaciji obrade podataka."""
+  title = "Usluge Analize Podataka za Šumarska Istraživanja"
+  description = """Napredna statistička analiza i R rješenja za šumarska i ekološka istraživanja.
+  
+  Kombiniranje doktorske ekspertize u šumarstvu s naprednim analitičkim metodama za pretvaranje složenih skupova podataka u korisne znanstvene uvide.""" 
+  
   [params.services.list]
     [params.services.list.0]
-      title = "Automatizacija istraživanja"
-      description = "Pretvaram dugotrajnu ručnu obradu podataka u učinkovite automatizirane procese. Razvijam prilagođena rješenja koja pojednostavljuju vaše istraživačke procese uz održavanje strogih standarda kvalitete. Usluge uključuju automatiziranu pripremu podataka, standardizaciju istraživačkih protokola, obradu velikih skupova podataka i izradu ponovljivih analitičkih postupaka. Ova automatizacija značajno smanjuje vrijeme analize i mogućnost ljudske pogreške, omogućujući istraživačima i znanstvenicima fokus na interpretaciju i otkrića."
+      title = "Statistička analiza i modeliranje"
+      description = "Napredni statistički pristupi za složene ekološke i šumarske skupove podataka. Usluge uključuju mixed-effects modeliranje, multivarijatnu analizu, analizu vremenskih nizova i prostornu statistiku. Razvijam metodološki rigorozne analize koje odgovaraju na vaša specifična istraživačka pitanja, uzimajući u obzir složenosti svojstvene ekološkim podacima. Sve analize osmišljene su za podršku peer-reviewed publikacijama i znanstvenom odlučivanju."
     
     [params.services.list.01]
-      title = "R programska rješenja"
-      description = "Razvoj prilagođenih R skripti za vaše specifične istraživačke izazove. Izrađujem cjelovita rješenja koja uključuju učinkovite procese obrade podataka, robusne funkcije za statističku analizu i dinamičke vizualizacije podataka. Svako rješenje je izrađeno s naglaskom na ponovljivost i dolazi s detaljnom dokumentacijom i trajnom podrškom. Bez obzira radite li s vremenskim serijama, prostornim podacima ili složenim hijerarhijskim skupovima podataka, mogu vam pomoći pojednostaviti proces analize."
-    
-    [params.services.list.02]
-      title = "Analiza podataka šumarskih istraživanja"
-      description = "Sveobuhvatna analitička rješenja za šumarska istraživanja koja kombiniraju podatke inventura, daljinskih istraživanja i okolišnih parametara. Usluge uključuju obradu podataka šumarskih mjerenja, analize rasta i prirasta stabala, procjenu zdravlja šuma i praćenje ekosustava. Fokus na integraciji različitih izvora podataka radi dubljeg uvida u dinamiku šuma i njihove reakcije na promjene u okolišu."
+      title = "Integracija prostornih Podataka"
+      description = "Integracija i analiza prostornih skupova podataka uključujući terenska mjerenja, remote sensing, GIS podatke i varijable okoliša. Specijaliziram se za kombiniranje više prostornih izvora podataka i rad s geografskim informacijama za potrebe šumarskih istraživanja."
+   
+   [params.services.list.02]
+     title = "Utjecaj klime na šumske ekosustave
+     description = "Analiza utjecaja klime na šumske ekosustave koristeći integrirane klimatske i ekološke skupove podataka. Usluge uključuju climate change impact procjene, vulnerability analize i analizu dugoročnih trendova. Specijaliziram se za povezivanje klimatskih varijabli s odzivima šuma, od rasta pojedinih stabala do promjena na razini ekosustava."
     
    [params.services.list.03]
-     title = "Obrada prostornih podataka"
-     description = "Napredna obrada i analiza prostornih podataka sa specijalizacijom za šumarska istraživanja. Usluge uključuju rad s različitim prostornim formatima, obradu satelitskih snimaka, integraciju terenskih mjerenja s podacima daljinskih istraživanja, te razvoj automatiziranih postupaka prostorne analize. Posebna ekspertiza u analizi strukture šuma i praćenju promjena kroz vrijeme pomoću naprednih geoprostornih metoda."
-   
-   [params.services.list.04]
-      title = "Integracija klimatskih podataka"
-      description = "Obrada i analiza klimatskih podataka u istraživačkom kontekstu. Usluge uključuju integraciju klimatskih varijabli s terenskim mjerenjima, analize utjecaja klime na šumske ekosustave, te razvoj automatiziranih sustava praćenja. Specijalizacija u povezivanju klimatskih podataka s različitim aspektima šumskih ekosustava, od rasta i vitalnosti stabala do dinamike sastojina i dugoročnih promjena u ekosustavima."
+     title = "Razvoj istraživačkog workflow-a"
+     description = "Stvaranje reproducibilnih R workflow-a prilagođenih vašim istraživačkim potrebama. Razvijam sveobuhvatne analitičke procese koji osiguravaju metodološku dosljednost i znanstvenu transparentnost. Usluge uključuju custom R script development, automatizirane reporting sustave i training programe koji grade analitičke kapacitete vašeg tima."
     
-    [params.services.list.05]
-      title = "Vizualizacija istraživanja"
-      description = "Izrada vizualizacija podataka prikladnih za publikacije koje učinkovito komuniciraju rezultate istraživanja. Usluge uključuju razvoj prilagođenih funkcija za grafički prikaz, interaktivnih alata za vizualizaciju i automatiziranu izradu izvješća. Specijalizacija u vizualizaciji složenih prostornih obrazaca, vremenskih trendova i viševarijabilnih odnosa. Sve vizualizacije su reproducibilne i lako se ažuriraju novim podacima."
-
+    [params.services.list.04]
+      title = "Znanstvena vizualizacija i komunikacija"
+      description = "Razvoj publication-quality vizualizacija koje učinkovito komuniciraju složene istraživačke rezultate. Usluge uključuju naprednu statističku grafiku, interactive dashboards i data science aplikacije. Specijaliziram se za stvaranje vizualizacija koje ne samo zadovoljavaju publikacijske standarde već također poboljšavaju znanstveno razumijevanje i olakšavaju istraživačku komunikaciju."
 [params.socials]
   enabled = true
   callToAction = "Povežimo se na profesionalnim mrežama >"

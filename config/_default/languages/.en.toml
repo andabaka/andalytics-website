@@ -13,28 +13,27 @@ contentDir = "content/en"
     preTitle = 'andalytics by'
     title = "marijana andabaka"
     intro= """
-### Transform your research data processing from months to hours
+### Advanced R solutions for forest science: From data to discoveries
 ___
 
-Specialized in automating data analysis for research institutions with extensive expertise in forest science.
-Expertise in:
-- **R programming** for research workflow automation
-- **Forestry research** data analysis
-- **Spatial data** integration
-- **Climate data** processing
+PhD forest scientist specializing in statistical analysis, spatial data integration, and research insights for forestry institutions. Core expertise:
+- **Statistical analysis & modeling** for ecological and forestry research
+- **Spatial data integration** (GIS, remote sensing, field measurements)
+- **R programming** for research workflows
+- **Climate & environmental data** processing
 
-With a PhD in Forestry and 7 years of academic research experience, I understand the challenges of your research data processing.
+With a PhD in Forestry and 7+ years of research experience, I understand both the scientific questions and the analytical challenges of forest research.
         """
     mainButton = "Services"
     mainButtonRef = "pages/services"
     secondButton = "Contact"
     secondButtonRef = "/contacts"
-    blogTitle = "Blog Posts"
+    blogTitle = "R for Forest Science"
     blogButton= "More Posts"
 
 [params.office]
   title = "Insights on research data analysis, automation, and forest science"
-  description = "Blog"
+  description = "R for Forest Science"
 
 [params.contacts]
   title = "Let's Discuss Your Research"
@@ -51,36 +50,30 @@ With a PhD in Forestry and 7 years of academic research experience, I understand
     submitBtn = "Send Inquiry"
 
 [params.services]
-  title = "Research Data Analysis Services"
-  description = """Specialized in transforming complex research data into actionable scientific insights.
+  title = "Forest Data Science Services"
+  description = """Advanced statistical analysis and R solutions for forestry and ecological research.
   
-  Offering expertise in forest science research while supporting diverse research institutions with data analysis automation.""" 
-
+  Combining PhD-level forest science expertise with sophisticated analytical methods to transform complex datasets into actionable research insights.""" 
+  
   [params.services.list]
     [params.services.list.0]
-      title = "Research Automation"
-      description = "Transform time-consuming manual data processing into efficient automated workflows. I develop custom solutions that streamline your research processes while maintaining rigorous quality standards. Services include automated data cleaning, standardization of research protocols, batch processing of large datasets, and creation of reproducible analysis pipelines. This automation significantly reduces analysis time and human error, allowing researchers to focus on interpretation and discovery."
+      title = "Statistical Analysis & Modeling"
+      description = "Advanced statistical approaches for complex ecological and forestry datasets. Services include mixed-effects modeling, multivariate analysis, time series analysis, and spatial statistics. I develop methodologically rigorous analyses that address your specific research questions while accounting for the complexities inherent in ecological data. All analyses are designed to support peer-reviewed publication and scientific decision-making."
     
     [params.services.list.01]
-      title = "R Programming Solutions"
-      description = "Custom R script development designed to address your specific research challenges. I create comprehensive solutions that include efficient data processing workflows, robust statistical analysis functions, and dynamic data visualizations. Each solution is built with reproducibility in mind and comes with thorough documentation and ongoing support. Whether you're working with time series, spatial data, or complex hierarchical datasets, I can help streamline your analysis process."
+      title = "Spatial Data Integration"
+      description = "Integration and analysis of spatial datasets including field measurements, remote sensing, GIS data, and environmental variables. I specialize in combining multiple spatial data sources and working with geographic information to support forest research questions."
     
-    [params.services.list.02]
-      title = "Forest Research Analysis"
-      description = "Comprehensive analysis solutions for forest science research, combining inventory data, remote sensing, and environmental parameters. Services include processing of forest measurement data, tree growth analysis, forest health assessment, and ecosystem monitoring. Specialized in integrating multiple data sources to provide deeper insights into forest dynamics and responses to environmental changes."
+   [params.services.list.02]
+     title = "Climate-Forest Interactions"
+     description = "Analysis of climate impacts on forest ecosystems using integrated climate and ecological datasets. Services include climate change impact assessments, vulnerability analysis, and long-term trend analysis. I specialize in linking climate variables with forest responses, from individual tree growth to ecosystem-level changes, providing insights crucial for adaptive forest management."
     
    [params.services.list.03]
-     title = "Spatial Data Processing"
-     description = "Advanced analysis of spatial research data, with expertise in forest research analysis. Services include processing of various spatial data formats, satellite imagery, integration of field measurements with remote sensing data, creating spatial analysis workflows, and developing automated mapping solutions. Specialized in analyzing forest structure and temporal changes through comprehensive geospatial analytics."
-    
-   [params.services.list.04]
-     title = "Climate Data Integration"
-     description = "Expert processing and analysis of climate data in research contexts. Services include integration of climate variables with field measurements, analysis of climate impacts on forest ecosystems, and development of automated monitoring systems. Specialized in linking climate data with various aspects of forest ecosystems, from tree growth and vitality to stand dynamics and long-term ecosystem changes."
-    
-    [params.services.list.05]
-      title = "Research Visualization"
-      description = "Creation of publication-quality data visualizations that effectively communicate research findings. Services include development of custom plotting functions, interactive visualization tools, and automated report generation. Specialized in visualizing complex multi-variable relationships. All visualizations are reproducible and easily updatable with new data."
-
+     title = "Research Workflow Development"
+     description = "Creation of reproducible R workflows tailored to your research needs. I develop comprehensive analytical pipelines that ensure methodological consistency and scientific transparency. Services include custom R script development, automated reporting systems, and training programs that build your team's analytical capacity."
+    [params.services.list.04]
+      title = "Scientific Visualization & Communication"
+      description = "Development of publication-quality visualizations that effectively communicate complex research findings. Services include advanced statistical graphics, interactive dashboards and data science applications. I specialize in creating visualizations that not only meet publication standards but also enhance scientific understanding and facilitate research communication."
 [params.socials]
   enabled = true
   callToAction = "Connect on professional networks >"
