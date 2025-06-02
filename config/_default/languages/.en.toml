@@ -32,8 +32,8 @@ With a PhD in Forestry and 7+ years of research experience, I understand both th
     blogButton= "More Posts"
 
 [params.office]
-  title = "Insights on research data analysis, automation, and forest science"
-  description = "R for Forest Science"
+  title = "R for Forest Science"
+  description = "Insights on research data analysis, automation, and forest science"
 
 [params.contacts]
   title = "Let's Discuss Your Research"
