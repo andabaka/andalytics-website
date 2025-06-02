@@ -25,18 +25,18 @@ Područja ekspertize:
 - **R programiranje** za istraživačke workflow-e
 - **Analiza climate-forest interakcija**
 
-Kao doktorica šumarskih znanosti sa 7+ godina istraživačkog iskustva, razumijem i znanstvena pitanja i analitičke izazove šumarskih istraživanja.
+Kao doktorica šumarskih znanosti sa 7+ godina istraživačkog iskustva, razumijem i znanstvena pitanja i analitičke izazove vaših istraživanja.
         """
     mainButton = "Usluge"
     mainButtonRef = "/usluge"
     secondButton = "Kontakt"
     secondButtonRef = "/kontakt"
-    blogTitle = "Blog Posts"
+    blogTitle = "R for Forest Science"
     blogButton= "More Posts"
 
 [params.office]
-  title = "Blog"
-  description = "Uvidi u analizu podataka, automatizaciju i šumarsku znanost"
+  title = "R for Forest Science"
+  description = "Insights on research data analysis, automation, and forest science"
 
 [params.contacts]
   title = "Razgovarajmo o vašem istraživanju"
@@ -68,7 +68,7 @@ Kao doktorica šumarskih znanosti sa 7+ godina istraživačkog iskustva, razumij
       description = "Integracija i analiza prostornih skupova podataka uključujući terenska mjerenja, remote sensing, GIS podatke i varijable okoliša. Specijaliziram se za kombiniranje više prostornih izvora podataka i rad s geografskim informacijama za potrebe šumarskih istraživanja."
    
    [params.services.list.02]
-     title = "Utjecaj klime na šumske ekosustave
+     title = "Utjecaj klime na šumske ekosustave"
      description = "Analiza utjecaja klime na šumske ekosustave koristeći integrirane klimatske i ekološke skupove podataka. Usluge uključuju climate change impact procjene, vulnerability analize i analizu dugoročnih trendova. Specijaliziram se za povezivanje klimatskih varijabli s odzivima šuma, od rasta pojedinih stabala do promjena na razini ekosustava."
     
    [params.services.list.03]
