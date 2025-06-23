@@ -1,4 +1,4 @@
-<!-- Navigation-->
+ <!-- Navigation-->
 <header class="shadow-sm sticky-lg-top" style="z-index: 10000;background-color: #4f4d4e;">
   <nav class="navbar navbar-expand-lg navbar-light py-3">
     <div class="container px-5">
@@ -25,6 +25,9 @@
             <a class="nav-link nav-menu text-nowrap" href="{{ .URL }}">{{.Name}}</a>
           </li>
           {{ end }}
+          <li class="nav-item">
+            <a class="nav-link nav-menu text-nowrap" href="https://mandabaka.netlify.app/" target="_blank" rel="noopener noreferrer">About Me</a>
+          </li>
           <li class="vr ms-1 d-none d-lg-block"></li>
           {{ if hugo.IsMultilingual }}  
           {{if .IsTranslated}}

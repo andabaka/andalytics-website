@@ -13,10 +13,17 @@ imageAttribution: 'Photo by <a href="https://unsplash.com/@laynelawson?utm_conte
 ---
 
 ```{r setup, include=FALSE}
+# Create data directory if it doesn't exist
+if (!dir.exists("data/cache")) {
+  dir.create("data/cache", recursive = TRUE)
+}
+
 knitr::opts_chunk$set(
   echo = TRUE,
   warning = FALSE,
   message = FALSE,
+  cache = TRUE,
+  cache.path = "data/cache/",
   fig.align = 'center',
   out.width = '60%',
   collapse = TRUE,  
@@ -25,6 +32,7 @@ knitr::opts_chunk$set(
   results = 'hold',     
   fig.show = 'hold',     
   hold = TRUE,
+  cache.lazy = FALSE,
   dependson = "previous",
   autodep = TRUE 
 )
@@ -37,11 +45,18 @@ library(readr)
 library(leaflet)
 library(ggplot2)
 library(magrittr)
-library(htmlwidgets)
 
+# Always initialize GEE
+tryCatch({
+  ee_Initialize(drive = TRUE)
+}, error = function(e) {
+  message("GEE initialization failed. Trying to reinitialize...")
+  ee_clean_user_credentials()
+  ee_Initialize(drive = TRUE)
+})
 
-ee_Initialize(drive = TRUE)
-
+# Save initialization status
+saveRDS(TRUE, "data/cache/gee_initialized.rds")
 ```
 
 ## Introduction
@@ -171,7 +186,7 @@ Combining ground-based plot data with satellite imagery provides valuable insigh
 
 The first step involves preparing plot coordinates for use with satellite imagery. Our forest plots, located in the Dinaric region of Croatia, were originally surveyed using the Gauss Kruger coordinate system. However, to work with GEE, we need to transform these coordinates to the global WGS84 system.
 
-```{r load_coordinates}
+```{r load_coordinates, cache=TRUE}
 #-------------------------------------------
 # Read forest plot coordinates from CSV
 #-------------------------------------------
@@ -193,7 +208,7 @@ coords_df %>%
 
 
 Once we have our coordinates, we need to convert them into a format that GEE understands.
-```{r convert_to_ee, dependson="load_coordinates"}
+```{r convert_to_ee, cache=TRUE, dependson="load_coordinates"}
 #------------------------------------------------
 # Convert our spatial data to GEE format
 #------------------------------------------------
@@ -203,7 +218,7 @@ plots_ee <- sf_as_ee(coords_df)
 
 With plot locations properly formatted, we can now access Sentinel-2 satellite imagery. Sentinel-2 provides high-resolution optical imagery perfect for forest monitoring, with new images available every few days. We'll focus on summer months and filter out cloudy images to ensure the best possible visualization.
 
-```{r load_sentinel, dependson="convert_to_ee"}
+```{r load_sentinel, cache=TRUE, dependson="convert_to_ee"}
 #-------------------------------------------------
 # Access and process Sentinel-2 satellite imagery
 #-------------------------------------------------
@@ -225,13 +240,19 @@ s2_imagery <- ee$ImageCollection('COPERNICUS/S2_SR')$
     # values, helping to remove any remaining clouds 
     # or artifacts
     #----------------------------------------------
-    median() 
+    select(c('B2', 'B3', 'B4', 'B8'))$
+    median()
 
+
+# Save results
+if (!file.exists("data/cache/s2_imagery.rds")) {
+    saveRDS(s2_imagery, "data/cache/s2_imagery.rds")
+}
 ```
 
 To display the satellite imagery we need to set appropriate visualization parameters. We'll use a true-color combination that shows the forest as it would appear to the human eye, with some adjustments to enhance visibility and contrast.
 
-```{r vis_params, dependson="load_sentinel"}
+```{r vis_params, cache=TRUE, dependson="load_sentinel"}
 #--------------------------------------------
 # Set parameters for true-color visualization
 #--------------------------------------------
@@ -242,14 +263,23 @@ vis_params <- list(
     gamma = 1.2                    # Slight contrast enhancement
 ) 
 
+if (!file.exists("data/cache/vis_params.rds")) {
+    saveRDS(vis_params, "data/cache/vis_params.rds")
+}
 ```
 
-These parameters control how the satellite imagery is displayed. Bands ('B4', 'B3', 'B2') create a true-color image. Min and max control the brightness range and gamma adjusts the contrast (values > 1 increase contrast). 
+These parameters control how the satellite imagery is displayed. Bands ('B4', 'B3', 'B2') create a true-color image:
+
+- B4 (Red band) → Red channel
+- B3 (Green band) → Green channel
+- B2 (Blue band) → Blue channel
+
+Min and max control the brightness range and gamma adjusts the contrast (values > 1 increase contrast). 
 
 Finally, we can create our visualization by combining the satellite imagery with plot locations.
 The resulting map allows users to zoom in and out, toggle between different base maps, and switch layers on and off using the layer control panel in the top-left corner. This interactivity allow us to understand the spatial distribution of our sampling plots within the broader forest landscape.
 
-```{r map_visualization, dependson=c("load_sentinel", "vis_params", "convert_to_ee")}
+```{r map_visualization, cache=TRUE, dependson=c("load_sentinel", "vis_params", "convert_to_ee")}
 #-----------------------------
 # Center view on study area 
 #-----------------------------
@@ -257,12 +287,8 @@ Map$centerObject(plots_ee, zoom = 9)
 #-----------------------------
 # Add satellite imagery
 #-----------------------------
-map <- Map$addLayer(s2_imagery, vis_params, "Sentinel-2") +
+Map$addLayer(s2_imagery, vis_params, "Sentinel-2") +
 Map$addLayer(plots_ee, list(color = 'white', pointSize = 1), "Forest Plots")  
-
-map
-
-
 
 ```
 
@@ -277,7 +303,7 @@ Let's analyze the vegetation health across our study plots using Sentinel-2 sate
 We use Sentinel-2's specific bands for this calculation. Band 8 (NIR, 842nm) captures the high reflectance of vegetation in the near-infrared spectrum and Band 4 (RED, 665nm) captures chlorophyll absorption during photosynthesis. Both bands have 10-meter spatial resolution, providing detailed forest structure information.
 
 
-```{r calculate_ndvi, dependson="load_sentinel"}
+```{r calculate_ndvi, cache=TRUE, dependson="load_sentinel"}
 #---------------------------------------------------
 # Using Sentinel-2's NIR (B8) and RED (B4) bands for 
 # NDVI calculation
@@ -298,27 +324,31 @@ ndvi_params <- list(
     )
 )
 
+# Cache NDVI results
+if (!file.exists("data/cache/ndvi_results.rds")) {
+    saveRDS(list(ndvi = ndvi, ndvi_params = ndvi_params), 
+            "data/cache/ndvi_results.rds")
+}
+
 ```
 
 Interactive map shows NDVI patterns across the entire landscape through a color gradient from orange (low NDVI) to dark green (high NDVI). White dots represent forest plot locations. You can zoom in/out to explore and layer control allows toggling between the NDVI layer and plot locations.
 
-```{r ndvi_visualization, dependson=c("calculate_ndvi", "convert_to_ee")}
+```{r ndvi_visualization, cache=TRUE, dependson=c("calculate_ndvi", "convert_to_ee")}
 
 #--------------------------------------------------
 # Creating interactive map with NDVI visualization
 #--------------------------------------------------
 Map$centerObject(plots_ee, zoom = 9)
 
-map1 <-Map$addLayer(ndvi, ndvi_params, "NDVI") +
+Map$addLayer(ndvi, ndvi_params, "NDVI") +
 Map$addLayer(plots_ee, list(color = 'white', pointSize = 1), "Forest Plots")
-
-map1
 
 ```
 
 After calculating and visualizing NDVI across our study area, we can extract specific NDVI values for each forest plot location and analyze how these values vary across different forest management units.
 
-```{r extract_ndvi, dependson=c("calculate_ndvi", "load_coordinates")}
+```{r extract_ndvi, cache=TRUE, dependson=c("calculate_ndvi", "load_coordinates")}
 #-------------------------------------------
 # Extract NDVI values for each plot location
 #-------------------------------------------
@@ -343,6 +373,12 @@ unit_summary <- ndvi_values %>%
 
 unit_summary %>% 
     head()
+
+# Cache results
+if (!file.exists("data/cache/ndvi_analysis.rds")) {
+    saveRDS(list(ndvi_values = ndvi_values, unit_summary = unit_summary),
+            "data/cache/ndvi_analysis.rds")
+}
 ```
 
 
@@ -350,7 +386,7 @@ We'll create an interactive map that categorizes NDVI values and allows users to
 
 The map's interactive elements allow viewers to access plot information by hovering over locations, while clicking on specific plots reveals detailed information including management unit name, plot identification number, precise NDVI value, and NDVI category. For easier interpretation, a legend displays the NDVI value color scale, and users can freely navigate through different areas using zoom and pan functions.
 
-```{r ndvi_interactive_viz, dependson=c("extract_ndvi", "load_coordinates")}
+```{r ndvi_interactive_viz, cache=TRUE, dependson=c("extract_ndvi", "load_coordinates")}
 #------------------------------------------------------
 # Prepare data for interactive visualization
 # Categorize NDVI values and create informative labels
@@ -422,11 +458,16 @@ leaflet() %>%
         opacity = 1
     )
 
+# Cache processed data
+if (!file.exists("data/cache/ndvi_viz_data.rds")) {
+    saveRDS(plots_with_ndvi, "data/cache/ndvi_viz_data.rds")
+}
+
 ```
 
 To complement our analysis, we'll visualize the statistical distribution of NDVI values across forest management units using a combined violin and box plot. This visualization helps us understand both the central tendencies and the full distribution of forest health conditions within each management unit.
 
-```{r ndvi_distribution, fig.cap="Distribution of NDVI values across forest management units", out.width="70%", dependson="ndvi_interactive_viz"}
+```{r ndvi_distribution, fig.cap="Distribution of NDVI values across forest management units", out.width="70%", cache=TRUE, dependson="ndvi_interactive_viz"}
 #--------------------------------------------------
 # Create violin plot combined with box plot to show
 # NDVI distribution across management units
@@ -468,7 +509,7 @@ The Hansen Global Forest Change dataset, developed by researchers at the Univers
 
 Let's analyze forest cover changes in our study area using this dataset:
 
-```{r forest_cover_analysis, dependson="convert_to_ee"}
+```{r forest_cover_analysis, cache=TRUE, dependson="convert_to_ee"}
 #--------------------------------------------------
 # Load Hansen Global Forest Change dataset
 #--------------------------------------------------
@@ -489,12 +530,20 @@ forest2000 <- hansen$select('treecover2000')
 # 22 = loss in 2022
 loss_year <- hansen$select('lossyear')
 
+# Cache Hansen dataset results
+if (!file.exists("data/cache/hansen_data.rds")) {
+    saveRDS(list(
+        forest2000 = forest2000,
+        loss_year = loss_year
+    ), "data/cache/hansen_data.rds")
+}
+
 
 ```
 
 To understand the spatial patterns of forest cover and loss, we create an interactive visualization. The interactive map displays three key layers of forest information. The base layer shows the forest cover as it existed in the year 2000, represented by different shades of green where darker green indicates denser forest cover (>30% tree cover). Overlaid on this is a layer showing where forest loss has occurred between 2001 and 2022, visualized through a red color gradient. In this loss layer, lighter red shades indicate areas where forest loss occurred earlier in the time period (closer to 2001), while darker red shades represent more recent forest loss (closer to 2022). The topmost layer consists of white points marking our forest plot locations across the study area. This layered visualization allows us to simultaneously understand the initial forest conditions, track where and when forest loss occurred, and relate these patterns to our sampling locations.
 
-```{r forest_cover_viz, dependson="forest_cover_analysis"}
+```{r forest_cover_viz, cache=TRUE, dependson="forest_cover_analysis"}
 
 #--------------------------------------------------
 # Set visualization parameters
@@ -524,16 +573,22 @@ vis_params_loss <- list(
 # Create interactive map
 #--------------------------------------------------
 Map$centerObject(plots_ee, zoom = 9)
-map2 <- Map$addLayer(forest2000, vis_params_forest, "Forest Cover 2000") +
+Map$addLayer(forest2000, vis_params_forest, "Forest Cover 2000") +
 Map$addLayer(loss_year, vis_params_loss, "Year of Loss", opacity = 0.6) +
 Map$addLayer(plots_ee, list(color = 'white', pointSize = 1), "Forest Plots")
 
-map2
+# Cache visualization parameters
+if (!file.exists("data/cache/forest_vis_params.rds")) {
+    saveRDS(list(
+        vis_params_forest = vis_params_forest,
+        vis_params_loss = vis_params_loss
+    ), "data/cache/forest_vis_params.rds")
+}
 ```
 
 Now let's see how forest disturbances vary across management units by analyzing patterns of forest loss.
 
-```{r loss_analysis, dependson=c("forest_cover_analysis", "extract_ndvi")}
+```{r loss_analysis, cache=TRUE, dependson=c("forest_cover_analysis", "extract_ndvi")}
 #--------------------------------------------------
 # Calculate statistics for each management unit
 #--------------------------------------------------
@@ -560,11 +615,19 @@ loss_analysis <- loss_year_values %>%
 
 loss_analysis %>% 
     head()
+
+# Cache loss analysis results
+if (!file.exists("data/cache/loss_analysis.rds")) {
+    saveRDS(list(
+        loss_year_values = loss_year_values,
+        loss_analysis = loss_analysis
+    ), "data/cache/loss_analysis.rds")
+}
 ```
 
 To understand the dynamics of forest disturbance over time, we analyze the annual occurrence of loss events. With interactive map we can visualize the distribution of forest plots, distinguishing between disturbed (red) and undisturbed (green) plots across the region. 
 
-```{r temporal_analysis, class.output="plot-output-container",fig.cap=" Patterns of forest loss events across management units from 2000 to 2022", out.width="70%", dependson="loss_analysis"}
+```{r temporal_analysis, class.output="plot-output-container",fig.cap=" Patterns of forest loss events across management units from 2000 to 2022", out.width="70%", cache=TRUE, dependson="loss_analysis"}
 #--------------------------------------------------
 # Analyze temporal patterns of forest loss
 #--------------------------------------------------
@@ -606,11 +669,17 @@ ggplot(temporal_summary,
         legend.position = "bottom"
     )
 
+
+
+# Cache temporal analysis results
+if (!file.exists("data/cache/temporal_analysis.rds")) {
+    saveRDS(temporal_summary, "data/cache/temporal_analysis.rds")
+}
 ```
 
 
 
-```{r disturbance_map, dependson=c("temporal_analysis", "load_coordinates")}
+```{r disturbance_map, cache=TRUE, dependson=c("temporal_analysis", "load_coordinates")}
 
 #--------------------------------------------------
 # Prepare and visualize disturbance data
@@ -662,6 +731,10 @@ leaflet() %>%
         title = "Plot Status"
     )
 
+# Cache disturbance analysis results
+if (!file.exists("data/cache/disturbance_analysis.rds")) {
+    saveRDS(plots_with_disturbance, "data/cache/disturbance_analysis.rds")
+}
 ```
 
 ## Extracting and Analyzing Climate Data for Forest Plots
@@ -673,7 +746,7 @@ TerraClimate is a dataset of monthly climate and climatic water balance for glob
 
 First, we access the TerraClimate dataset and select our variables of interest. This retrieves monthly climate data for our plot location for the period 2014-2023, including maximum temperature (tmmx), minimum temperature (tmmn) and precipitation (pr).
 
-```{r load_climate, dependson="convert_to_ee"}
+```{r load_climate, cache=TRUE, dependson="convert_to_ee"}
 #--------------------------------------------------
 # Load TerraClimate dataset with key climate variables
 #--------------------------------------------------
@@ -681,11 +754,16 @@ terraclimate_data <- ee$ImageCollection("IDAHO_EPSCOR/TERRACLIMATE")$
     filterDate('2014-01-01', '2023-12-31')$
     select(c('tmmx', 'tmmn', 'pr'))  # max temp, min temp, precipitation
 
+# Cache terraclimate data reference
+if (!file.exists("data/cache/terraclimate_data.rds")) {
+    saveRDS(terraclimate_data, "data/cache/terraclimate_data.rds")
+}
+
 ```
 
 Then we create a function that will process climate data for a single plot. This processing selects relevant climate columns, reshapes data from wide to long format, creates proper date structures, converts temperature values from tenths of degrees to Celsius and returns a tidy dataframe with climate variables.
 
-```{r climate_processing_function}
+```{r climate_processing_function, cache=TRUE}
 #--------------------------------------------------
 # Define function to process climate data for plots
 #--------------------------------------------------
@@ -735,7 +813,7 @@ process_plot_climate <- function(plot_sf) {
 
 For a single plot, we can create visualizations to understand climate patterns. Temperature time series shows the pattern of maximum and minimum temperatures over time, revealing seasonal temperature variations.
 
-```{r single_plot_analysis, out.width="70%", fig.cap= "Monthly maximum and minimum temperatures (°C) from 2014 to 2023 for a representative forest plot", dependson=c("climate_processing_function", "load_climate")}
+```{r single_plot_analysis, out.width="70%", fig.cap= "Monthly maximum and minimum temperatures (°C) from 2014 to 2023 for a representative forest plot", cache=TRUE, dependson=c("climate_processing_function", "load_climate")}
 #--------------------------------------------------
 # Analyze climate patterns for first plot
 #--------------------------------------------------
@@ -766,11 +844,20 @@ temp_plot <- ggplot(single_plot_climate, aes(x = date)) +
 
 temp_plot
 
+# Cache single plot analysis
+if (!file.exists("data/cache/single_plot_climate.rds")) {
+    saveRDS(list(
+        data = single_plot_climate,
+        temp_plot = temp_plot
+    ), "data/cache/single_plot_climate.rds")
+}
+
+
 ```
 
 Precipitation time series displays monthly precipitation totals, helping identify wet and dry periods.
 
-```{r precipitation_analysis, fig.cap="Monthly precipitation totals (mm) from 2014 to 2023 for a representative forest plot", out.width="70%", dependson="single_plot_analysis"}
+```{r precipitation_analysis, fig.cap="Monthly precipitation totals (mm) from 2014 to 2023 for a representative forest plot", out.width="70%", cache=TRUE, dependson="single_plot_analysis"}
 
 #--------------------------------------------------
 # Create precipitation visualization for first plot
@@ -795,11 +882,18 @@ precip_plot <- ggplot(single_plot_climate, aes(x = date)) +
 
 precip_plot
 
+
+# Cache precipitation visualization
+if (!file.exists("data/cache/precip_analysis.rds")) {
+    saveRDS(precip_plot, "data/cache/precip_analysis.rds")
+}
+
+
 ```
 
 Average seasonal patterns combines temperature and precipitation patterns to show typical annual cycles.
 
-```{r seasonal_analysis, fig.cap="Average monthly temperature and precipitation patterns from 2014 to 2023", out.width="70%", dependson="single_plot_analysis"}
+```{r seasonal_analysis, fig.cap="Average monthly temperature and precipitation patterns from 2014 to 2023", out.width="70%", cache=TRUE, dependson="single_plot_analysis"}
 
 #--------------------------------------------------
 # Calculate and visualize seasonal patterns
@@ -855,6 +949,14 @@ seasonal_plot <- ggplot(seasonal_data) +
    )
 
 seasonal_plot
+
+# Cache seasonal analysis results
+if (!file.exists("data/cache/seasonal_analysis.rds")) {
+    saveRDS(list(
+        data = seasonal_data,
+        plot = seasonal_plot
+    ), "data/cache/seasonal_analysis.rds")
+}
 ```
 
 
@@ -862,25 +964,33 @@ seasonal_plot
 
 The process_plot_climate function can be used to analyze all plots in dataset using lapply function. This makes the code highly reusable, allowing you to analyze climate patterns for either individual plots or your entire forest inventory with minimal modifications.
 
-```{r process_all_plots, eval = FALSE, dependson=c("climate_processing_function", "load_coordinates")}
+```{r process_all_plots, cache=TRUE, eval = FALSE, dependson=c("climate_processing_function", "load_coordinates")}
 #--------------------------------------------------
 # Process climate data for all plots simultaneously
 # This approach is suitable for smaller datasets or
 # when memory constraints are not a concern
 #--------------------------------------------------
-
-all_plots_climate <- lapply(1:nrow(coords_df), function(i) {
+# First check if results already exist in cache
+if (!file.exists("data/cache/all_plots_climate.rds")) {
+    # If no cached results exist, process all plots
+    all_plots_climate <- lapply(1:nrow(coords_df), function(i) {
         # Add progress indicator for monitoring
         cat("Processing plot", i, "of", nrow(coords_df), "\n")
         process_plot_climate(coords_df[i, ])
     }) %>%
         bind_rows()  # Combine all results into a single data frame
     
+    # Save results to cache for future use
+    saveRDS(all_plots_climate, "data/cache/all_plots_climate.rds")
+} else {
+    # If cached results exist, load them instead of reprocessing
+    all_plots_climate <- readRDS("data/cache/all_plots_climate.rds")
+}
 ```
 
 For large datasets, it's recommended to process plots in batches. This approach processes plots in manageable batches, provides progress updates, handles potential errors, saves intermediate results and creates a final dataset combining all plots.
 
-```{r batch_processing, dependson="process_all_plots"}
+```{r batch_processing, cache=TRUE, dependson="process_all_plots"}
 #--------------------------------------------------
 # Process plots in batches for efficient memory usage
 # This approach is preferred for large datasets as it:
@@ -893,6 +1003,8 @@ batch_size <- 50  # Number of plots to process in each batch
 n_plots <- nrow(coords_df)  # Total number of plots
 n_batches <- ceiling(n_plots/batch_size)  # Calculate number of batches needed
 
+# Check if final processed data already exists
+if (!file.exists("data/cache/final_climate_data.rds")) {
     all_plots_climate <- list()
     
     # Process each batch separately
@@ -922,7 +1034,7 @@ n_batches <- ceiling(n_plots/batch_size)  # Calculate number of batches needed
         # Save intermediate results for each batch
         # This ensures we don't lose everything if processing is interrupted
         saveRDS(batch_results, 
-                file = paste0("data/climate_batch_", i, ".rds"))
+                file = paste0("data/cache/climate_batch_", i, ".rds"))
     }
     
     # Combine all batch results into final dataset
@@ -930,8 +1042,11 @@ n_batches <- ceiling(n_plots/batch_size)  # Calculate number of batches needed
                                  lapply(all_plots_climate, bind_rows))
     
     # Save final processed results
-    saveRDS(final_climate_data, "data/final_climate_data.rds")
-
+    saveRDS(final_climate_data, "data/cache/final_climate_data.rds")
+} else {
+    # If final results exist, load them instead of reprocessing
+    final_climate_data <- readRDS("data/cache/final_climate_data.rds")
+}
 
 final_climate_data %>% 
     head

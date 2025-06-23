@@ -1,8 +1,8 @@
 {{ define "main" }}
-<!-- Service 1 - Bootstrap Brain Component -->
 <section class="py-5 py-xl-8">
   <div class="container">
-    <div class="row justify-content-md-center">
+    <!-- Naslov i opis centralno -->
+    <div class="row justify-content-md-center mb-5">
       <div class="col-12 col-md-10 col-lg-8 col-xl-7 col-xxl-6">
         <h2 class="mb-4 display-5 text-center text-muted">
           {{.Site.Params.services.title}}
@@ -13,31 +13,82 @@
         <hr class="w-50 mx-auto mb-5 mb-xl-9 border-muted" />
       </div>
     </div>
-  </div>
-  <div class="container overflow-hidden">
-    <div class="row gy-5 justify-content-center">
-      {{range $index, $element := .Site.Params.services.list}}
-      <div class="col-sm-12 col-md-6 col-xl-4">
-        <div class="text-center px-xl-2">
-          <i
-            class="bi bi-check-circle-fill text-primary mb-4"
-            style="font-size: 36px"
-          ></i>
-          <h5 class="m-2">{{.title}}</h5>
-          <p class="m-0 text-muted">{{.description}}</p>
+    <!-- Slika lijevo + Services desno -->
+    <div class="row align-items-start">
+      <!-- SLIKA LIJEVO -->
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="d-flex flex-column gap-4">
+          <!-- PRVA SLIKA -->
+          {{ with resources.GetMatch "img/services.jpg" }}
+            <img src="{{.RelPermalink}}" class="img-fluid rounded shadow-lg">
+          {{ else }}
+            {{ with resources.GetMatch "img/services.png" }}
+              <img src="{{.RelPermalink}}" class="img-fluid rounded shadow-lg">
+            {{ else }}
+              {{ with resources.GetMatch "img/services.jpeg" }}
+                <img src="{{.RelPermalink}}" class="img-fluid rounded shadow-lg">
+              {{ end }}
+            {{ end }}
+          {{ end }}
+          
+          <!-- DRUGA SLIKA -->
+{{ with resources.GetMatch "img/services2.jpg" }}
+  <img src="{{.RelPermalink}}" class="img-fluid rounded shadow-lg" style="max-height: 485px; object-fit: cover;">
+{{ else }}
+  {{ with resources.GetMatch "img/services2.png" }}
+    <img src="{{.RelPermalink}}" class="img-fluid rounded shadow-lg" style="max-height: 300px; object-fit: cover;">
+  {{ else }}
+    {{ with resources.GetMatch "img/services2.jpeg" }}
+      <img src="{{.RelPermalink}}" class="img-fluid rounded shadow-lg" style="max-height: 300px; object-fit: cover;">
+    {{ end }}
+  {{ end }}
+{{ end }}
         </div>
       </div>
-      {{end}}
+      
+      <!-- SERVICES CARDS DESNO -->
+      <div class="col-lg-6">
+        <div class="ps-lg-4">
+          <div class="row g-4">
+            {{range $index, $element := .Site.Params.services.list}}
+            <div class="col-12">
+              <div class="card h-100 shadow-sm">
+                <div class="card-body p-4">
+                  <div class="d-flex align-items-start">
+                    <div class="flex-shrink-0 me-3">
+                      <i class="bi bi-check-circle-fill text-primary" style="font-size: 24px"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                      <h5 class="card-title mb-2">{{.title}}</h5>
+                      <p class="card-text text-muted">{{.description}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{end}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="d-grid gap-3 d-sm-flex justify-content-sm-center mt-5">
-    <!-- button -->
-    <!-- <a
-      class="btn btn-primary btn-lg mt-4 px-5 py-3 fs-6 fw-bolder shadow-sm"
-      href="{{absLangURL ""}}{{ .Site.Params.homepage.mainButtonRef }}"
-      >{{ .Site.Params.homepage.mainButton }}</a
-    > -->
+</section>
+<!-- Call to Action Section -->
+<section class="py-5 py-xl-8 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 text-center">
+        <h3 class="mb-4">Ready to Transform Your Data?</h3>
+        <p class="text-muted mb-4 fs-5">
+          Let's discuss how advanced analytics can accelerate your research discoveries.
+        </p>
+        <div class="d-flex justify-content-center">
+          <a class="btn btn-primary px-4 py-2" href="mailto:marijana@andalytics.com" style="color: white !important;">
+            Start Your Project
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 {{ end}}

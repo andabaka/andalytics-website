@@ -1,37 +1,27 @@
 baseURL = 'https://andalytics.com/'
-languageCode = ''
-title = 'Andalytics' # This can get overwritten by the single language files
+languageCode = 'en'
+title = 'Andalytics'
 defaultContentLanguage = 'en'
-defaultContentLanguageInSubDir = true
+defaultContentLanguageInSubDir = false
 enableRobotsTXT = true
 theme = "Magnolia"
 googleAnalytics = "G-NDC3LQZ6DM"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
 
-
 [params]
   custom_css = ["css/custom.css"]
 
-[languages]
-  [languages.en]
-    languageCode = "en"
-    languageName = "English"
-    weight = 1
-  [languages.hr]
-    languageCode = "hr"
-    languageName = "Hrvatski"
-    weight = 2
-
 [taxonomies]
-tag = "tags"
+  tag = "tags"
+
 
 [module]
-    [[module.mounts]]
-      source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-      target = "assets/js/bootstrap.bundle.min.js"
-    [[module.mounts]]
-      source = 'assets'
-      target = 'assets'
+  [[module.mounts]]
+    source = "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+    target = "assets/js/bootstrap.bundle.min.js"
+  [[module.mounts]]
+    source = 'assets'
+    target = 'assets'
   
   [module.hugoVersion]
     extended = false

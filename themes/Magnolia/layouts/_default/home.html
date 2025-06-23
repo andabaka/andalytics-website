@@ -26,12 +26,11 @@
             </div>
         </div>
     </div>
-
     <!-- Background elementi -->
     <div class="hero-background">
         <div class="hero-image">
             {{ with resources.GetMatch "img/background.jpg" }}
-                <img src="{{.RelPermalink}}" alt="Background image">
+                <img src="{{.RelPermalink}}">
             {{ end }}
         </div>
         <div class="gradient-overlay"></div>
@@ -39,9 +38,63 @@
 </section>
 
 <div class="container">
-    <div class="mt-5 align-items-center">
-        {{ .Content }}
+    <div class="mt-5">
+        <div class="row align-items-center">
+            <!-- SLIKA LIJEVO -->
+            <div class="col-lg-6">
+                {{ with resources.GetMatch "img/image.jpg" }}
+                    <img src="{{.RelPermalink}}" class="img-fluid rounded shadow-lg">
+                {{ end }}
+            </div>
+            
+            <!-- SADRŽAJ DESNO -->
+            <div class="col-lg-6">
+                <div class="ps-lg-4">
+                    {{ .Content }}
+                </div>
+            </div>
+        </div>
     </div>
+    
+    <!-- NOVA SEKCIJA - WHAT I DELIVER -->
+    <div class="my-5 py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- CENTRIRAN NASLOV -->
+                <h4 class="text-center mb-4">What I Deliver</h4>
+                
+                <!-- LISTA LIJEVO CENTRIRANA -->
+                <div class="d-flex justify-content-center">
+                    <div class="text-start">
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <strong>Advanced Statistical Analysis & Data Science:</strong> Sophisticated modeling approaches with automated pipelines for complex ecological datasets
+                            </li>
+                            <li class="mb-3">
+                                <strong>Spatial Data Integration & Automation:</strong> Seamless combination of field measurements, remote sensing, and environmental data with scalable processing
+                            </li>
+                            <li class="mb-3">
+                                <strong>Research-Quality Insights:</strong> Methodologically sound analyses that support peer-reviewed publications and policy decisions
+                            </li>
+                            <li class="mb-3">
+                                <strong>Reproducible Data Science Workflows:</strong> Documented R pipelines that ensure transparency, scalability, and replicability
+                            </li>
+                            <li class="mb-3">
+                                <strong>Scientific Collaboration & Capacity Building:</strong> Working with your research team to build modern analytical expertise and data science capabilities
+                            </li>
+                        </ul>
+                        
+                        <!-- LINKOVI KAO TEKST -->
+                        <div class="mt-4 text-center">
+                            <a href="pages/services" class="text-decoration-none me-4">Explore My Services</a> | 
+                            <a href="pages/contacts" class="text-decoration-none ms-4">Contact Me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     {{with (site.GetPage "/posts")}}
     <hr />
     <h2 class="text-center my-4">{{$.Site.Params.homepage.blogTitle}}</h2>

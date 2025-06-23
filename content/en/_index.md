@@ -1,19 +1,30 @@
 ---
-title: "Forest Data Science Services for Research Institutions"
-description: "Advanced statistical analysis and R solutions for forestry and ecological research"
+title: "Forest Data Science Services for Research & Organizations"
+description: "Advanced data science solutions and automated workflows for forestry and ecological research"
 ---
 
-### Transform Forest Data into Scientific Insights
+### Transform Data into Actionable Insights
 
-Forest research generates complex, multi-dimensional datasets that require sophisticated analytical approaches to unlock their full scientific potential. I help research institutions extract meaningful insights from ecological data through advanced statistical modeling, spatial analysis, and integrated data approaches.
-As a PhD forest scientist with extensive R programming expertise, I understand both the ecological questions driving your research and the analytical methods needed to answer them rigorously. My solutions combine deep domain knowledge with statistical precision to strengthen your research conclusions and accelerate scientific discovery.
-Let me help you reveal the patterns hidden in your forest data and enhance the impact of your research.
+Research institutions generate complex, multi-dimensional datasets that require sophisticated data science approaches to unlock their full potential.
 
-#### What I Deliver
-- **Advanced Statistical Analysis**: Sophisticated modeling approaches for complex ecological datasets
-- **Spatial Data Integration**: Seamless combination of field measurements, remote sensing, and environmental data
-- **Research-Quality Insights**: Methodologically sound analyses that support peer-reviewed publications
-- **Reproducible Science**: Documented R workflows that ensure transparency and replicability
-- **Scientific Collaboration**: Working with your research team to build analytical capacity and domain expertise
+I help research institutions and organizations extract meaningful insights from ecological data through advanced statistical modeling, automated workflows, and integrated spatial analysis.
 
-[Explore My Services](pages/services) | [Contact Me](pages/contacts) | [About Me](https://mandabaka.netlify.app/)
+As a PhD forest scientist with extensive data science expertise, I understand both the ecological questions driving your research and the modern analytical methods needed to answer them efficiently.
+
+My solutions combine deep domain knowledge with data science precision to strengthen your research conclusions, accelerate scientific discovery, and support evidence-based decision making.
+
+Let me help you reveal the patterns hidden in your environmental data and transform your analytical capabilities.
+
+#### Why Choose Data Science Approach?
+
+**Traditional Analysis:**
+- Manual processing takes weeks
+- Limited to small datasets  
+- Difficult to reproduce
+- One-time insights
+
+**My Data Science Solutions:**
+- Automated workflows save 90% of time
+- Handle datasets of any size
+- Fully reproducible and scalable
+- Continuous insights as data grows
