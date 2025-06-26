@@ -124,7 +124,7 @@ export_to_drive <- function(image, year) {
         description = paste0("croatia_ndvi_", year),
         folder = "Earth_Engine_Exports",
         fileNamePrefix = paste0("croatia_ndvi_", year),
-        scale = 1000,  # 1km pixel size balances detail with processing speed
+        scale = 1000,  
         region = croatia$geometry()$bounds(),
         maxPixels = 1e9  # Limit prevents timeout on large exports
     )
@@ -220,7 +220,7 @@ croatia_sf <- geodata::gadm(
     path = main_dir
 ) |> sf::st_as_sf()
 
-# Use WGS84 geographic coordinate system for broad compatibility
+# Use WGS84 geographic coordinate system 
 target_crs <- "EPSG:4326"
 
 # Obtain high-resolution elevation data for terrain context
@@ -229,7 +229,7 @@ dem_raw <- elevatr::get_elev_raster(
     z = 9,                  
     clip = "locations"       
 ) |>
-    terra::rast() |>                    # Convert to terra format
+    terra::rast() |>                         # Convert to terra format
     terra::crop(croatia_sf, mask = TRUE) |>  # Crop and mask to country
     terra::project(target_crs)         
 ```
@@ -366,8 +366,8 @@ bivariate_legend <- function(size = 9) {
     biscale::bi_legend(
         pal = "GrPink",
         dim = 3,
-        xlab = "Higher NDVI →",
-        ylab = "Higher CMI →",
+        xlab = "Higher NDVI",
+        ylab = "Higher CMI",
         size = size
     ) +
     theme(
@@ -431,7 +431,7 @@ ggsave(
 ➡️ Class 1-1 (Light Blue): Low NDVI + Low CMI  
 These areas represent the combination of limited moisture and low vegetation productivity 
 
-➡️ Class 1-2 (Medium Blue): Low NDVI + Medium CMI
+➡️ Class 1-2 (Medium Blue): Low NDVI + Medium CMI  
 These areas have moderate moisture availability but still show limited vegetation response. 
 
 ➡️ Class 1-3 (Dark Blue): Low NDVI + High CMI  
@@ -504,9 +504,9 @@ rayshader::plot_gg(
     windowsize = c(900, 900),   # Display window size in pixels
     scale = 250,                # Vertical exaggeration for dramatic terrain
     shadow = TRUE,              # Enable shadows for depth perception
-    shadow_intensity = 1,     # Shadow strength (0-1 scale)
+    shadow_intensity = 1,       # Shadow strength (0-1 scale)
     phi = 90,                   # Camera elevation angle (0-90 degrees)
-    theta = 0,                # Camera azimuth angle (0-360 degrees)
+    theta = 0,                  # Camera azimuth angle (0-360 degrees)
     zoom = 0.56,                # Camera zoom level
     multicore = TRUE            # Use multiple processor cores for speed
 )
