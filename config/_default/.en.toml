@@ -134,7 +134,7 @@ for research, management, and policy decisions.
   weight = 2
   [[menus.main]]
   name = "Forest Data Science"
-  pageRef = "posts"
+  pageRef = "/posts"
   weight = 3
   [[menus.main]]
   name = "Contact"
