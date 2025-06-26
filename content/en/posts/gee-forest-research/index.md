@@ -1,7 +1,7 @@
 ---
 title: "Introduction to Google Earth Engine: A Powerful Tool for Modern Forest Science"
 author: "Marijana Andabaka"
-date: "2025-06-22"
+date: "2025-06-26"
 slug: "gee-forest-research"
 categories: ["R", "GEE", "Forest Research"]
 tags: ["remote-sensing", "forest-monitoring", "earth-engine", "R", "spatial-analysis"]
