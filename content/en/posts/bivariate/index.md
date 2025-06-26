@@ -27,6 +27,8 @@ Adding 3D terrain visualization makes these patterns immediately interpretable f
 
 ## Building the Data Foundation
 
+<br>
+
 ### Accessing Sentinel-2 NDVI Through Google Earth Engine
 
 [Google Earth Engine](https://earthengine.google.com/) transforms satellite data access by providing computational power alongside massive data archives. Sentinel-2 satellites capture images at 10-meter resolution, while the NDVI measures vegetation greenness and productivity across all vegetation types.
@@ -176,6 +178,8 @@ terra::writeRaster(annual_cmi, "chelsa_cmi/annual_cmi_1981-2010.tif", overwrite=
 <br>
 
 ## Spatial Data Alignment and Preprocessing
+
+<br>
 
 ### Loading and Temporal Compositing
 
@@ -413,6 +417,8 @@ ggsave(
 )
 ```
 
+<br>
+
 <div class="figure" style="text-align: center">
 <img src="images/croatia_bivariate_2d.png" alt="Vegetation-climate relationships across Croatia" width="80%" />
 <p class="caption"><span id="fig:unnamed-chunk-2"></span>Figure 1: Vegetation-climate relationships across Croatia</p>
@@ -592,6 +598,8 @@ final_composite <- magick::image_composite(
 # Save final high-quality map 
 magick::image_write(final_composite, "croatia_bivariate_final_map.png", quality = 95)
 ```
+
+<br>
 
 <div class="figure" style="text-align: center">
 <img src="images/croatia_bivariate_3d.png" alt="3D bivariate map showing vegetation-climate relationships across Croatia" width="80%" />
