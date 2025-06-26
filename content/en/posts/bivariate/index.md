@@ -609,15 +609,14 @@ magick::image_write(final_composite, "croatia_bivariate_final_map.png", quality 
 <br>
 
 ## References
-
-1. Biscale Package Documentation: https://chris-prener.github.io/biscale/
-2. CHELSA Climate Data: https://chelsa-climate.org/
+1. <a href="https://chris-prener.github.io/biscale/" target="_blank">Biscale Package Documentation</a>
+2. <a href="https://chelsa-climate.org/" target="_blank">CHELSA Climate Data</a>
 3. Fisher, W.D. (1958). On grouping for maximum homogeneity. Journal of the American Statistical Association, 53(284), 789-798
-4. Google Earth Engine Documentation: https://developers.google.com/earth-engine/
+4. <a href="https://developers.google.com/earth-engine/" target="_blank">Google Earth Engine Documentation</a>
 5. Jenks, G.F. (1967). The data model concept in statistical mapping. International Yearbook of Cartography, 7, 186-190
-6. Popović, M. 3D Bivariate Climate Maps: https://github.com/milos-agathon/3d-bivariate-climate-maps/blob/main/R/main.r
-7. Rayshader GitHub Repository: https://github.com/tylermorganwall/rayshader
-8. Rayshader Package: https://www.rayshader.com/
+6. <a href="https://github.com/milos-agathon/3d-bivariate-climate-maps/blob/main/R/main.r" target="_blank">Popović, M. 3D Bivariate Climate Maps</a>
+7. <a href="https://github.com/tylermorganwall/rayshader" target="_blank">Rayshader GitHub Repository</a>
+8. <a href="https://www.rayshader.com/" target="_blank">Rayshader Package</a>
 
 <br>
 
