@@ -19,12 +19,12 @@ ___
 PhD forest scientist specializing in data science workflows, automated analysis, 
 and research insights for research institutions and organizations. Core expertise:
 
-- **Statistical modeling & data science** for ecological and forestry research
+- **Statistical modeling & data science** for forestry and environmental research
 - **Spatial data integration** (GIS, remote sensing, automated processing)
 - **R programming & automation** for scalable research workflows  
 - **Climate & environmental data** analytics and visualization
 
-With a PhD in Forestry and 7+ years of research experience, I help organizations transform complex environmental data into actionable insights 
+With a PhD in Forestry and 7+ years of research experience, I help organizations transform complex data into actionable insights 
 for research, management, and policy decisions.
         """
     mainButton = "Services"
@@ -54,22 +54,22 @@ for research, management, and policy decisions.
 
 [params.services]
   title = "Forest Data Science Services"
-  description = """Advanced statistical analysis and R solutions for forestry and ecological research.
+  description = """Advanced statistical analysis and R solutions for forestry and environmental research.
   
   Combining PhD-level forest science expertise with sophisticated analytical methods to transform complex datasets into actionable research insights.""" 
   
   [params.services.list]
     [params.services.list.0]
       title = "Statistical Analysis & Modeling"
-      description = "Advanced statistical approaches for complex ecological and forestry datasets. Services include mixed-effects modeling, multivariate analysis, time series analysis, and spatial statistics. I develop methodologically rigorous analyses that address your specific research questions while accounting for the complexities inherent in ecological data. All analyses are designed to support peer-reviewed publication and scientific decision-making."
+      description = "Advanced statistical approaches for complex forestry and environmental datasets. Services include mixed-effects modeling, multivariate analysis, time series analysis, and spatial statistics. I develop methodologically rigorous analyses that address your specific research questions while accounting for the complexities inherent in data. All analyses are designed to support peer-reviewed publication and scientific decision-making."
     
     [params.services.list.01]
       title = "Spatial Data Integration"
-      description = "Integration and analysis of spatial datasets including field measurements, remote sensing, GIS data, and environmental variables. I specialize in combining multiple spatial data sources and working with geographic information to support forest research questions."
+      description = "Integration and analysis of spatial datasets including field measurements, remote sensing, GIS, and environmental variables. I specialize in combining multiple spatial data sources and working with geographic information to support forest research questions."
     
    [params.services.list.02]
      title = "Climate-Forest Interactions"
-     description = "Analysis of climate impacts on forest ecosystems using integrated climate and ecological datasets. Services include climate change impact assessments, vulnerability analysis, and long-term trend analysis. I specialize in linking climate variables with forest responses, from individual tree growth to ecosystem-level changes, providing insights crucial for adaptive forest management."
+     description = "Analysis of climate impacts on forest ecosystems using integrated climate and ecological datasets. Services include climate change impact assessments, vulnerability analysis, and long-term trend analysis. I specialize in linking climate variables with forest responses, from individual tree growth to ecosystem-level changes, providing insights for adaptive forest management."
     
    [params.services.list.03]
      title = "Research Workflow Development"
