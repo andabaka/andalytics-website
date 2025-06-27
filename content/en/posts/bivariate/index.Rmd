@@ -338,7 +338,7 @@ create_bivariate_base <- function(data, include_labels = TRUE, theme_additions =
     base_map <- ggplot(data) +
         geom_raster(aes(x = x, y = y, fill = bi_class)) +
         biscale::bi_scale_fill(
-            pal = "GrPink",        # Green for high NDVI, Pink for high CMI
+            pal = "GrPink",      
             dim = 3,
             flip_axes = FALSE,
             rotate_pal = FALSE
