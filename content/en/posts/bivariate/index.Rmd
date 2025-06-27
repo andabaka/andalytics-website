@@ -441,7 +441,7 @@ Zones where abundant moisture exists but vegetation coverage remains low due to 
 ➡️ Class 2-1 (Light Pink): Medium NDVI + Low CMI  
 These regions demonstrate vegetation adaptation to water-limited conditions.
 
-➡️ Class 2-2 (Medium Pink): Medium NDVI + Medium CMI
+➡️ Class 2-2 (Medium Pink): Medium NDVI + Medium CMI  
 These zones show balanced relationships between moisture availability and vegetation response.
 
 ➡️ Class 2-3 (Dark Pink): Medium NDVI + High CMI  

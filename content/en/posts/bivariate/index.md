@@ -1,7 +1,7 @@
 ---
 title: "3D Bivariate Mapping: Combining NDVI and Climate Data"
 author: "Marijana Andabaka"
-date: "2025-06-26"
+date: "2025-06-27"
 slug: "3d-bivariate-vegetation-climate-mapping"
 categories: ["R", "Vegetation Research", "Remote Sensing", "Climate Analysis", "Spatial Analysis"]
 tags: ["bivariate mapping", "NDVI", "CMI", "Google Earth Engine", "CHELSA", "3D visualization", "rayshader", "vegetation ecology", "climate moisture", "spatial analysis", "Croatia", "vegetation productivity", "drought assessment", "terra package", "biscale"]
@@ -440,7 +440,7 @@ Zones where abundant moisture exists but vegetation coverage remains low due to 
 ➡️ Class 2-1 (Light Pink): Medium NDVI + Low CMI  
 These regions demonstrate vegetation adaptation to water-limited conditions.
 
-➡️ Class 2-2 (Medium Pink): Medium NDVI + Medium CMI
+➡️ Class 2-2 (Medium Pink): Medium NDVI + Medium CMI  
 These zones show balanced relationships between moisture availability and vegetation response.
 
 ➡️ Class 2-3 (Dark Pink): Medium NDVI + High CMI  
